@@ -1,0 +1,20 @@
+.theme--light.v-messages {
+    color: red;
+}
+.page-padding {
+    padding: 10px;
+}
+.my-shadow {
+    -moz-box-shadow:2px 2px 3px #868686; 
+    -webkit-box-shadow:2px 2px 3px #868686; 
+    box-shadow:2px 2px 3px #868686;
+}
+.my-content {
+    padding: 12px;
+}
+.list-title {
+    padding: 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #868686;
+}
