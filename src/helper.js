@@ -27,6 +27,18 @@ helper.ls = {
     return value
   }
 }
+const gettype = Object.prototype.toString
+helper.type = {
+  isObj: function (o) {
+    return gettype.call(o) === '[object Object]'
+  },
+  isNULL: function (o) {
+    return gettype.call(o) === '[object Null]'
+  },
+  isNumber: function (o) {
+    return gettype.call(0) === '[object Number]'
+  }
+}
 /**
  * a wrapper for helper.ls
  */

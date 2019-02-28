@@ -1,10 +1,8 @@
 <template>
   <div>
-    <div class="my-shadow">
-      <v-breadcrumbs class="breadcrumbs" :items="item">
+    <v-breadcrumbs class="breadcrumbs" :items="item">
 
-      </v-breadcrumbs>
-    </div>
+    </v-breadcrumbs>
   </div>
 </template>
 <script>
@@ -19,7 +17,8 @@ export default {
 .breadcrumbs {
   background: #fff;
   line-height: 28px;
-  padding: 10px 12px;
+  padding: 10px 20px;
+  color: #1976d2 !important;
 }
 
 </style>

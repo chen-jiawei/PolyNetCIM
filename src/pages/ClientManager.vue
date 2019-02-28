@@ -1,58 +1,79 @@
 <template>
-  <div class="page-padding">
-    <my-breadcrumbs :item="items"></my-breadcrumbs>
-    <div class="my-shadow my-content">
-      <div class="search-bar my-shadow">
+  <div>
+    <my-breadcrumbs :item="navItems"></my-breadcrumbs>
+    <div class="my-content">
+      <div class="search-bar">
         <div class="search-item condition">
           <v-select
-            :items="['ByName','By Code']"
-            label="Query Condition"
-            v-model="queryData.condition"
+            size="1"
+            :items="[$t('ByName'), $t('ByCode')]"
+            :label="$t('QueryCondition')"
+            v-model="nameOrCode"
           ></v-select>
         </div>
-        <div class="search-item">
+        <div class="search-item" v-if="nameOrCode === 'By Name' || nameOrCode === '通過姓名'">
           <v-text-field
-            :label="queryData.condition"
+            :label="$t('ByName')"
+            v-model="params.cliLname"
+          ></v-text-field>
+        </div>
+        <div class="search-item search_input"  v-if="nameOrCode === 'By Code' || nameOrCode === '通過賬號'">
+          <v-text-field
+            :label="$t('ByCode')"
+            v-model="params.cliCode"
           ></v-text-field>
         </div>
 
         <div class="search-item">
           <v-select
-            :items="['aaa','bbb','cccdddddddddddddddddddddddddddddddddddddddddddddddddddddddddd']"
-            label="Country"
+            :items="countrys"
+            item-text="label"
+            item-value="value"
+            :label="$t('Country')"
+            v-model="params.cliCty"
           ></v-select>
         </div>
 
         <div class="search-item">
           <v-select
-            :items="statusTypeArr"
-            label="Status"
-            v-model="queryData.status"
+            :items="statusList"
+            item-text="label"
+            item-value="value"
+            :label="$t('Status')"
+            v-model="params.cliSt"
           ></v-select>
         </div>
 
         <div class="search-item">
           <v-select
-            :items="clientTypeArr"
-            label="Client Type"
-            v-model="queryData.clientType"
+            :items="types"
+            item-text="label"
+            item-value="value"
+            :label="$t('ClientType')"
+            v-model="params.cliType"
           ></v-select>
         </div>
 
         <div class="search-item">
-          <v-btn color="info"><v-icon>search</v-icon> Search</v-btn>
+          <v-btn color="info" icon @click="searchList" :loading="isLoading"><v-icon small>search</v-icon></v-btn>
         </div>
         <div class="search-item">
-          <v-btn color="info" to="/client-manager-edit"><v-icon>add</v-icon> add client</v-btn>
+          <v-btn color="info" icon @click="resetList"><v-icon small>refresh</v-icon></v-btn>
+        </div>
+        <div class="search-item">
+          <v-btn color="info" icon to="/client-manager-edit/add"><v-icon small>add</v-icon></v-btn>
         </div>
       </div>
 
       <v-data-table
         :headers="headers"
         :items="dataTable"
-        class="elevation-1"
+        hide-actions
+        :loading="isLoading"
+        class="data-tabel"
       >
         <template slot="items" slot-scope="props">
+          <td class="text-xs-left"><v-btn flat icon color="info" :to="`/client-manager-edit/${props.item.cliCode}`"><v-icon small>edit</v-icon></v-btn></td>
           <td class="text-xs-left">{{ props.item.cliLname }}</td>
           <td class="text-xs-left">{{ props.item.cliCode }}</td>
           <td class="text-xs-left">{{ props.item.cliMainagt }}</td>
@@ -62,214 +83,273 @@
           <td class="text-xs-left">{{ props.item.tmp_typeDesc }}</td>
           <td class="text-xs-left">{{ props.item.cliTelidd + props.item.cliTel }}</td>
           <td class="text-xs-left">{{ props.item.cliTelidd + props.item.cliFax }}</td>
-          <td class="text-xs-left"><v-btn color="info"><v-icon>edit</v-icon> Edit</v-btn></td>
         </template>
       </v-data-table>
+      <div class="text-xs-center">
+        <v-pagination
+          :total-visible="7"
+          v-model="params.page.currentPageNo"
+          :length="pageLangth"
+          :disabled="isLoading"
+          @next="jump('next')"
+          @previous="jump('prev')"
+          @input="jump"
+          class="pagination"
+        ></v-pagination>
+        <input type="text" v-model="currentNum" class="current_input" :placeholder="$t('currentNum')">
+        <button class="goJump" @click="jump(currentNum)">Go</button>
+      </div>
     </div>
   </div>
 </template>
 <script>
-
+// import myUpload from '../components/uploadFile.vue'
 export default {
   data () {
     return {
-      queryData: {
-        condition: 'By Name',
-        clientType: '*Whatever',
-        status: '*Whatever'
-
-      },
-      clientTypeArr: [
-        '*Whatever',
-        'Adjuster',
-        'Agent',
-        'Agent Group',
-        'Bank',
-        'Broker',
-        'Claimant',
-        'Client Group',
-        'Direct Account',
-        'Dummy',
-        'Garage',
-        'H/P owner',
-        'Insured',
-        'Insurer',
-        'Reinsurer',
-        'Solicitor',
-        'Staff',
-        'Surver Agent',
-        'Sureyor',
-        'Unregistered Ag'
-      ],
-      statusTypeArr: [
-        '*Whatever',
-        'Active',
-        'Close',
-        'Deleted',
-        'Suspend'
-      ],
-      items: [
+      file: '',
+      isLoading: false,
+      pageLangth: 0,
+      navItems: [
         {
-          text: 'Home',
-          disabled: false,
-          href: '/'
-        },
-        {
-          text: 'Client Manager',
+          text: this.$t('ClientManager'),
           disabled: true,
           href: '/client-manager'
         }
       ],
+      nameOrCode: 'By Name',
+      params: {
+        cliLname: '',
+        cliCode: '',
+        cliCty: '',
+        cliType: '',
+        cliSt: '',
+        page: {
+          currentPageNo: 1
+        }
+      },
+      currentNum: null,
+      countrys: [
+        {
+          value: 'MAC',
+          label: 'MACAU'
+        },
+        {
+          value: 'JAP',
+          label: 'JAPAN'
+        },
+        {
+          value: 'KOR',
+          label: 'KOREA(SOUTH)'
+        },
+        {
+          value: 'MAL',
+          label: 'MALAYSIA'
+        },
+        {
+          value: 'MAU',
+          label: 'MAURITIUS'
+        },
+        {
+          value: 'MEX',
+          label: 'MEXICO'
+        }
+      ],
+      statusList: [
+        {
+          value: 'A',
+          label: 'Active'
+        },
+        {
+          value: 'C',
+          label: 'Close'
+        },
+        {
+          value: 'D',
+          label: 'Delete'
+        },
+        {
+          value: 'S',
+          label: 'Suspend'
+        }
+      ],
+      types: [],
       headers: [
         {
-          text: 'Long Name',
+          text: '',
+          sortable: false
+        },
+        {
+          text: this.$t('LongName'),
           value: 'cliLname'
         },
         {
-          text: 'Client'
+          text: this.$t('Client'),
+          value: 'cliCode'
         },
         {
-          text: 'Main Agt'
+          text: this.$t('MainAgt'),
+          sortable: false
         },
         {
-          text: 'Address'
+          text: this.$t('Address'),
+          value: 'cliAddr1'
         },
         {
-          text: 'Country'
+          text: this.$t('Country'),
+          value: 'cliCty'
         },
         {
-          text: 'Type'
+          text: this.$t('Type'),
+          sortable: false
         },
         {
-          text: 'Type Desc'
+          text: this.$t('TypeDesc'),
+          sortable: false
         },
         {
-          text: 'Tel No.'
+          text: this.$t('TelNo.'),
+          value: 'cliTelidd' + 'cliTel'
         },
         {
-          text: 'Fax No.'
-        },
-        {
-          text: 'Options'
+          text: this.$t('FaxNo.'),
+          value: 'cliTelidd'
         }
       ],
-      dataTable: [
-        {
-          cliCode: 'C00011',
-          cliLname: 'C00011 - Long name',
-          cliSname: 'C00011 - Short name',
-          cliAddr1: 'addr1',
-          cliAddr2: 'addr2',
-          cliAddr3: 'addr3',
-          cliAddr4: 'addr4',
-          cliCty: 'MAC',
-          cliZip: '',
-          cliType: 'C',
-          cliGroup: ' ',
-          cliTelidd: '853',
-          cliTel: '123456789',
-          cliFaxidd: ' ',
-          cliFax: ' ',
-          cliTlxidd: ' ',
-          cliTlx: ''
-        },
-        {
-          cliCode: 'C00011',
-          cliLname: 'C00011 - Long name',
-          cliSname: 'C00011 - Short name',
-          cliAddr1: 'addr1',
-          cliAddr2: 'addr2',
-          cliAddr3: 'addr3',
-          cliAddr4: 'addr4',
-          cliCty: 'MAC',
-          cliZip: '',
-          cliType: 'C',
-          cliGroup: ' ',
-          cliTelidd: '853',
-          cliTel: '123456789',
-          cliFaxidd: ' ',
-          cliFax: ' ',
-          cliTlxidd: ' ',
-          cliTlx: ''
-        },
-        {
-          cliCode: 'C00011',
-          cliLname: 'C00011 - Long name',
-          cliSname: 'C00011 - Short name',
-          cliAddr1: 'addr1',
-          cliAddr2: 'addr2',
-          cliAddr3: 'addr3',
-          cliAddr4: 'addr4',
-          cliCty: 'MAC',
-          cliZip: '',
-          cliType: 'C',
-          cliGroup: ' ',
-          cliTelidd: '853',
-          cliTel: '123456789',
-          cliFaxidd: ' ',
-          cliFax: ' ',
-          cliTlxidd: ' ',
-          cliTlx: ''
-        },
-        {
-          cliCode: 'C00011',
-          cliLname: 'C00011 - Long name',
-          cliSname: 'C00011 - Short name',
-          cliAddr1: 'addr1',
-          cliAddr2: 'addr2',
-          cliAddr3: 'addr3',
-          cliAddr4: 'addr4',
-          cliCty: 'MAC',
-          cliZip: '',
-          cliType: 'C',
-          cliGroup: ' ',
-          cliTelidd: '853',
-          cliTel: '123456789',
-          cliFaxidd: ' ',
-          cliFax: ' ',
-          cliTlxidd: ' ',
-          cliTlx: ''
-        },
-        {
-          cliCode: 'C00011',
-          cliLname: 'C00011 - Long name',
-          cliSname: 'C00011 - Short name',
-          cliAddr1: 'addr1',
-          cliAddr2: 'addr2',
-          cliAddr3: 'addr3',
-          cliAddr4: 'addr4',
-          cliCty: 'MAC',
-          cliZip: '',
-          cliType: 'C',
-          cliGroup: ' ',
-          cliTelidd: '853',
-          cliTel: '123456789',
-          cliFaxidd: ' ',
-          cliFax: ' ',
-          cliTlxidd: ' ',
-          cliTlx: ''
-        }
-      ]
+      dataTable: []
+    }
+  },
+  mounted () {
+    this.queryClientType()
+    this.queryList()
+  },
+  methods: {
+    /**
+     * 获取client type 下拉列表
+     */
+    queryClientType () {
+      this.$fetch({
+        method: 'POST',
+        url: '/ipoly/clientManager/getClientType.json'
+      })
+      .then(res => {
+        let types = []
+        res.body.map(item => {
+          let obj = {}
+          obj.label = item.cleName
+          obj.value = item.cleCode
+          types.push(obj)
+        })
+        this.types = types
+      })
+    },
+    /**
+     * 获取页面表单数据
+     */
+    queryList () {
+      this.isLoading = true
+      this.$fetch({
+        method: 'POST',
+        url: '/ipoly/clientManager/getList.json',
+        body: this.params
+      })
+      .then(res => {
+        this.dataTable = res.body.data
+        this.pageLangth = res.body.page.totalPageNum
+        this.isLoading = false
+      })
+    },
+    /**
+     * 根据参数搜索列表
+     */
+    searchList () {
+      this.params.page.currentPageNo = 1
+      this.queryList()
+    },
+    /**
+     * 重置表单
+     */
+    resetList () {
+      this.params.cliLname = ''
+      this.params.cliCode = ''
+      this.params.cliCty = ''
+      this.params.cliSt = ''
+      this.params.cliType = ''
+    },
+    /**
+     * 分页功能回调函数
+     * @param {number,string} type next=下一页 prev=上一页 Number类型=跳到当前页
+     */
+    jump (type) {
+      if (type === 'next') {
+        this.params.page.currentPageNo + 1
+      } else if (type === 'prev') {
+        this.params.page.currentPageNo - 1
+      } else {
+        this.params.page.currentPageNo = parseInt(type)
+      }
+      this.queryList()
     }
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .data-icon {
   float: left;
   margin-right: 5px;
 }
 .search-bar {
-  padding: 10px 5px;
-  overflow: hidden;
-  margin-bottom: 10px;
-  background: #FFF;
-  .search-item {
-    float: left;
-    margin-right: 20px;
-    max-width: 200px;
-    overflow:hidden;
-  }
+  padding: 10px 28px 10px 28px;
+}
+.search-bar .search-item {
+  max-width: 100%;
+}
+.search-bar .search-item:nth-child(2) {
+  width: 280px !important;
+}
+.my-content {
+  background: #f2f8fb;
+}
+.data-tabel tr:hover td {
+  background-color: #ceedfe;
+}
+.data-tabel tr:nth-child(even) td {
+  background-color: #f7f7f7 !important;
+}
+.data-tabel tr:nth-child(even):hover td {
+  background-color: #ceedfe !important;
+}
+.theme--light.v-table tbody tr:not(:last-child) {
+  border: none;
+}
+table.v-table thead th {
+  font-size: 14px;
+  color: #000;
+  font-weight: bolder;
+}
+.v-btn--icon {
+  border-radius: 10%;
+}
+.pagination {
+  vertical-align: middle;
+}
+.current_input {
+  width: 60px;
+  height: 28px;
+  font-size: 12px;
+  text-align: center;
+  border: 1px solid #bbb;
+  border-radius: 5%;
+  outline: none;
+  color: #000;
+  margin-right: 10px;
+}
+.goJump {
+  width: 28px;
+  height: 28px;
+  border-radius: 10%;
+  background: #ddd;
+  color: #000;
+  outline: none;
 }
 </style>
-

@@ -1,3 +1,15 @@
+html,body {
+    height: 100%;
+}
+.f-right {
+    float: right !important;
+}
+.f-left {
+    float: left !important;
+}
+.no-border {
+    border: none !important;
+}
 .theme--light.v-messages {
     color: red;
 }
@@ -17,4 +29,30 @@
     font-size: 16px;
     font-weight: bold;
     color: #868686;
+}
+.weight {
+    font-weight: bold;
+}
+.my-alert {
+    z-index: 999999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin-top: 0px;
+}
+.data-tabel {
+    margin-bottom: 10px;
+}
+.search-bar {
+    padding: 10px 5px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    background: #FFFFFF;
+}
+.search-bar .search-item {
+    float: left;
+    margin-right: 20px;
+    max-width: 200px;
+    overflow:hidden;
 }
