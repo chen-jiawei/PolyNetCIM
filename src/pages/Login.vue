@@ -98,12 +98,12 @@ export default {
     return {
       isLoading: false,
       lang: localelang,
-      name: '',
+      name: 'Z113',
       nameError: false,
       nameRules: [
         v => !!v || this.$t('NameEmpty')
       ],
-      pwd: '',
+      pwd: 'test1234',
       pwdError: false,
       pwdRules: [
         v => !!v || this.$t('PwdEmpty')

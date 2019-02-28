@@ -97,7 +97,7 @@
           class="pagination"
         ></v-pagination>
         <input type="text" v-model="currentNum" class="current_input" :placeholder="$t('currentNum')">
-        <button class="goJump" @click="jump(currentNum)">Go</button>
+        <v-btn class="goJump" small @click="jump(currentNum)">Go</v-btn>
       </div>
     </div>
   </div>
@@ -338,18 +338,13 @@ table.v-table thead th {
   height: 28px;
   font-size: 12px;
   text-align: center;
-  border: 1px solid #bbb;
+  border: 1px solid rgba(177,176,176,1);
   border-radius: 5%;
   outline: none;
   color: #000;
   margin-right: 10px;
+  position: relative;
+  top: 2px;
 }
-.goJump {
-  width: 28px;
-  height: 28px;
-  border-radius: 10%;
-  background: #ddd;
-  color: #000;
-  outline: none;
-}
+
 </style>
