@@ -42,6 +42,7 @@
 import data from '../../static/3dChart'
 import 'echarts-gl/dist/echarts-gl.min.js'
 export default {
+  name: 'AccountStatistics',
   data () {
     return {
       loading: false,

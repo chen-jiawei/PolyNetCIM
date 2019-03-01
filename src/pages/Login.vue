@@ -81,6 +81,7 @@ import helper from '../helper'
 import i18n from '../i18n/'
 import Sidentify from '../components/identify'
 export default {
+  name: 'Login',
   components: {
     Sidentify
   },
@@ -179,7 +180,7 @@ export default {
           this.closeAlert()
         } else {
           this.showErrorMsg = false
-          helper.ls.set('userName', this.name)
+          helper.ls.set('PolyName', this.name)
           this.$router.push('/')
         }
       })

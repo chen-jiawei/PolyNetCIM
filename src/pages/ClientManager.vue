@@ -105,6 +105,7 @@
 <script>
 // import myUpload from '../components/uploadFile.vue'
 export default {
+  name: 'ClientManager',
   data () {
     return {
       file: '',

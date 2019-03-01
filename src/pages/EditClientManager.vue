@@ -2316,7 +2316,7 @@ export default {
       this.attentionsListQuery(cliCode)
       this.forbidChange = true
     } else {
-      this.items[2].text = this.$t('Add')
+      this.items[1].text = this.$t('Add')
     }
     this.clientTypeQuery()
   },

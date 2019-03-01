@@ -1,49 +1,70 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
-function route (path, file, name, children) {
-  return {
-    exact: true,
-    path,
-    name,
-    children,
-    component: require(`./pages/${file}.vue`)
-  }
-}
-
 Vue.use(Router)
+import helper from './helper'
 
 const router = new Router({
   base: __dirname,
   mode: 'hash',
   scrollBehavior: () => ({ y: 0 }),
   routes: [
-    route('/login/', 'Login', 'login'),
-    route('/login/:id', 'Login', 'login'),
-    route('/error', 'Error', 'error'),
-
-    // path, file(*.vue), name, children
-
-    route('/', 'Main', null, [
-      route('/', 'Home', 'home'),
-      route('/client-manager', 'ClientManager'),
-      route('/client-manager-edit/:cliCode', 'EditClientManager'),
-      route('/Account-statistics', 'AccountStatistics')
-    ])
-
-    // Global redirect for 404
-    // { path: '*', redirect: '/error', query: {code: 404, message: 'Page Not Found.'} }
+    {
+      exact: true,
+      path: '/login',
+      component: resolve => require(['@/pages/Login.vue'], resolve)
+    },
+    {
+      exact: true,
+      path: '/login/:id',
+      component: resolve => require(['@/pages/Login.vue'], resolve)
+    },
+    {
+      exact: true,
+      path: '/',
+      component: resolve => require(['@/pages/Main.vue'], resolve),
+      children: [
+        {
+          exact: true,
+          path: '/',
+          component: resolve => require(['@/pages/Home.vue'], resolve)
+        },
+        {
+          exact: true,
+          path: '/client-manager',
+          component: resolve => require(['@/pages/ClientManager.vue'], resolve)
+        },
+        {
+          exact: true,
+          path: '/client-manager-edit/:cliCode',
+          component: resolve => require(['@/pages/EditClientManager.vue'], resolve)
+        },
+        {
+          exact: true,
+          path: '/Account-statistics',
+          component: resolve => require(['@/pages/AccountStatistics.vue'], resolve)
+        },
+        {
+          exact: true,
+          path: '/error',
+          component: resolve => require(['@/pages/Error.vue'], resolve)
+        }
+      ]
+    }
   ]
 })
 
 router.beforeEach((to, from, next) => {
-  global.store.dispatch('checkPageTitle', to.path)
-  /* eslint-disable no-undef */
-  if (typeof ga !== 'undefined') {
-    ga('set', 'page', to.path)
-    ga('send', 'pageview')
+  const name = helper.ls.get('PolyName')
+  console.log(to)
+  if (to.path.indexOf('login') === -1) {
+    if (typeof name !== 'undefined' && !name) {
+      next('/login')
+    } else {
+      next()
+    }
+  } else {
+    next()
   }
-  next()
 })
 
 export default router

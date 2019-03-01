@@ -170,10 +170,10 @@
 import helper from '../helper'
 import i18n from '../i18n/'
 export default {
+  name: 'Main',
   created () {
-    const userName = helper.ls.get('userName')
-    if (!userName) this.$router.push('/login')
-    this.userName = helper.ls.get('userName')
+    this.userName = helper.ls.get('PolyName') || null
+    if (!this.userName) this.$router.push('/login')
   },
   data () {
     let localeLang = helper.ls.get('locale')
@@ -211,7 +211,7 @@ export default {
       })
       .then(res => {
         if (res.responseCode === 1000) {
-          helper.ls.set('userName', null)
+          helper.ls.set('PolyName', null)
         }
         this.$router.push('/login')
       })

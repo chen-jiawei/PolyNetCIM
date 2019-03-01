@@ -16,6 +16,7 @@
 </style>
 <script>
 export default {
+  name: 'Error',
   data () {
     return {
       code: this.$route.query.code || 404,
