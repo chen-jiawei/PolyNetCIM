@@ -2964,7 +2964,7 @@ export default {
  
 }
 .right-option .item {
-  padding-bottom: 10px;
+  padding-bottom: 20px !important;
 }
 .pd10 {
   padding: 10px;
