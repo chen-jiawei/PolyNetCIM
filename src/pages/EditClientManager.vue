@@ -1,5 +1,5 @@
 <template>
-  <div class="page-padding"> 
+  <div> 
     <!-- <embed :src="testIMG" type="application/pdf" width="100%" height="100%" style="position:fixed;top:0;left:0;z-index:99999999;" v-if="testIMG !== ''"> -->
     <!-- <pdf :src="testIMG" style="width:50%;height:50%;position:fixed;top:0;left:0;z-index:99999999;" v-if="testIMG !== ''"></pdf> -->
     <v-alert class="my-alert" color="#FB8C00" :value="showErrorMsg" type="warning" transition="scale-transition">
@@ -12,7 +12,7 @@
       {{`Successfully uploaded ${successNumber} file`}}
     </v-alert>
     <my-breadcrumbs :item="items"></my-breadcrumbs>
-    <div class="my-shadow my-content">
+    <div class="my-content">
       <v-tabs
         slider-color="#1976D2"
       >
@@ -23,10 +23,9 @@
           {{$t('Attentions')}}
         </v-tab>
         <!--  ==================  client  =============== -->
-        <v-tab-item>
+        <v-tab-item style="background: yellow;height: auto;width:100%;">
           <v-card flat>
-            <v-card-text class="client-info my-vuetify-css">
-              <!-- table1 -->
+            <div class="my-vuetify-css" style="width: 100%;height:140px;background: #fff;margin-bottom: 10px;padding: 10px 20px;">
               <!-- 表单第一行 -->
               <div class="clear">
                 <div class="info-item">
@@ -124,13 +123,16 @@
                   </div>
                 </div>
               </div>
+            </div>
+            <v-card-text class="client-info my-vuetify-css" style="width: 100%;height:auto;background: rgb(242,248,251);padding: none;">
+              <!-- table1 -->
               <!-- 表单flex部分 -->
               <v-container grid-list-md text-xs-center class="personal-data">
                 <v-layout row wrap>
                   <!-- 表单左边-占8份 -->
                   <v-flex xs8>
-                    <v-card class="affiliation pd10">
-                      <div class="item">
+                    <v-card class="affiliation pd10" style="background: #fff;">
+                      <div class="item" >
                         <v-layout row wrap>
                           <v-flex xs2><div class="item-name"><i class="redstar">*</i>{{$t('LongName')}}</div></v-flex>
                           <v-flex xs10>
@@ -512,7 +514,7 @@
                         </v-layout>
                       </div>
                       <div class="area-border">
-                        <div class="title">{{$t('BankA/C')}}Bank A/C</div>
+                        <div class="title" style="color: rgb(25,118,210);">{{$t('BankA/C')}}Bank A/C</div>
                         <div class="item">
                           <v-layout row wrap>
                             <v-flex xs2><div class="item-name"><i class="redstar">*</i>{{$t('BankName')}}</div></v-flex>
@@ -650,9 +652,9 @@
                         <div class="item">
                           <v-layout row wrap>
                             <v-flex xs3>{{$t('CreatedOn')}} <span class="weight">{{clientForm.cliCdate | formatDate}}</span></v-flex>
-                            <v-flex xs1>{{$t('by')}} <span class="weight">{{clientForm.cliCuser}}</span></v-flex>
+                            <v-flex xs3>{{$t('by')}} <span class="weight">{{clientForm.cliCuser}}</span></v-flex>
                             <v-flex xs3>{{$t('AmendedOn')}} <span class="weight">{{clientForm.cliAdate | formatDate}}</span></v-flex>
-                            <v-flex xs1>{{$t('by')}} <span class="weight">{{clientForm.cliAuser}}</span></v-flex>
+                            <v-flex xs3>{{$t('by')}} <span class="weight">{{clientForm.cliAuser}}</span></v-flex>
                           </v-layout>
                         </div>
                       
@@ -662,7 +664,7 @@
 
                   <!-- 表单右边-占4份 -->
                   <v-flex xs4>
-                    <v-card  class="affiliation pd10 right-option">
+                    <v-card  class="affiliation pd10 right-option" style="background: #fff;">
                       <div class="item">
                         <v-layout row wrap>
                           <v-flex xs3><div class="item-name">{{$t('CreditDays')}}</div></v-flex>
@@ -731,7 +733,7 @@
                       </div>
                       <!-- 打印设置 -->
                       <div class="area-border">
-                        <div class="title">{{$t('PrintOption')}}</div>
+                        <div class="title" style="color: rgb(25,118,210);">{{$t('PrintOption')}}</div>
                         <div class="item">
                           <v-checkbox :label="$t('PrintDebitNoteForAgent')" class="no-border" hide-details></v-checkbox>
                           <v-checkbox :label="$t('NotPrintReceipt')" class="no-border" hide-details></v-checkbox>
@@ -763,13 +765,13 @@
                           </v-flex>
                         </v-layout>
                         <v-layout row wrap class="btn-group">
-                          <v-flex xs12><v-btn block color="#9BE21C">{{$t('StatisticsCode')}}</v-btn></v-flex>
-                          <v-flex xs12><v-btn block color="#008080">{{$t('CommissionTerms')}}</v-btn></v-flex>
-                          <v-flex xs12><v-btn block color="#008000">{{$t('InsuredU/WInquiry')}}</v-btn></v-flex>
-                          <v-flex xs12><v-btn block color="#808000">{{$t('StatusHistory')}}</v-btn></v-flex>
-                          <v-flex xs12><v-btn block color="#000080">{{$t('Member')}}</v-btn></v-flex>
-                          <v-flex xs12><v-btn block color="#800080">{{$t('Group')}}</v-btn></v-flex>
-                          <v-flex xs12><v-btn block color="#0000FF" @click="openEFSList">{{$t('EFS')}}</v-btn></v-flex>
+                          <v-flex xs12><v-btn block color="rgb(37,163,233)">{{$t('StatisticsCode')}}</v-btn></v-flex>
+                          <v-flex xs12><v-btn block color="rgb(229,113,49)">{{$t('CommissionTerms')}}</v-btn></v-flex>
+                          <v-flex xs12><v-btn block color="rgb(255,205,85)">{{$t('InsuredU/WInquiry')}}</v-btn></v-flex>
+                          <v-flex xs12><v-btn block color="rgb(150,200,91)">{{$t('StatusHistory')}}</v-btn></v-flex>
+                          <v-flex xs12><v-btn block color="rgb(149,140,96)">{{$t('Member')}}</v-btn></v-flex>
+                          <v-flex xs12><v-btn block color="rgb(131,108,159)">{{$t('Group')}}</v-btn></v-flex>
+                          <v-flex xs12><v-btn block color="rgb(184,99,117)" @click="openEFSList">{{$t('EFS')}}</v-btn></v-flex>
                         </v-layout>
                       </div>
                       <div class="item">
@@ -827,8 +829,8 @@
                     </v-card>
                   </v-flex>
                 </v-layout>
-                <div class="server-btn">
-                  <v-btn block color="success" :loading="isLoading" :disabled="!formValid" @click="submitClientInfo">{{$t('Save')}}</v-btn>
+                <div class="server-btn" style="margin: 0 auto;width: 100%;">
+                  <v-btn color="rgb(29,118,208)" style="width: 310px;color: #fff;" :loading="isLoading" :disabled="!formValid" @click="submitClientInfo">{{$t('Save')}}</v-btn>
                 </div>
               </v-container>
             </v-card-text>
@@ -2889,6 +2891,15 @@ export default {
 .clear {
   overflow: hidden;
 }
+.container {
+  padding: 0!important;
+}
+.theme--light.v-sheet {
+  background: rgb(242,248,251);
+}
+.my-content {
+  background: rgb(242,248,251);
+}
 .info-item {
   float: left;
   overflow: hidden;
@@ -2903,10 +2914,14 @@ export default {
   .info-item-input {
     float: left;
     min-width: 230px;
-    
-    
   }
 
+}
+.right-option .item {
+  padding-bottom: 30px!important;
+}
+.elevation-2 {
+  box-shadow: none !important;
 }
 .nofloat {
   float: none;
@@ -2917,6 +2932,7 @@ export default {
   height: 62px;
 }
 .affiliation {
+  background: #fff;
   .item {
     overflow: hidden;
     .item-name {
@@ -2931,8 +2947,8 @@ export default {
   .area-border {
     border: 1px solid #eee;
     position: relative;
-    padding: 10px;
-    margin-bottom: 10px;
+    padding: 20px 10px;
+    margin: 10px 0;
     .title {
       position: absolute;
       top: -16px;
@@ -2940,6 +2956,9 @@ export default {
       background: #fff;
       font-size: 12px;
       padding: 5px;
+    }
+    .v-input {
+      margin-bottom: 8px;
     }
   }
  
@@ -3051,17 +3070,18 @@ export default {
 
 <style lang="less">
 /* 全局樣式 */
-.my-vuetify-css .v-input__slot {
-  border: 1px solid #eeeeee;
+.v-text-field.v-text-field--solo > .v-input__control > .v-input__slot {
+  box-shadow: none !important;
+  border-bottom: 1px solid rgb(210,210,210) !important;
+}
+.v-input__slot {
+  
 }
 .no-border .v-input__slot {
   border: none;
 }
 .my-vuetify-css .v-input__control {
   min-height: 32px !important;
-}
-.personal-data .v-select__slot {
-  box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
 }
 .personal-data .v-text-field,
 .info-item-input .v-text-field {
