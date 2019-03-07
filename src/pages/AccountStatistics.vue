@@ -42,6 +42,8 @@
 import data from '../../static/3dChart'
 import 'echarts-gl/dist/echarts-gl.min.js'
 
+import echarts from '../utils/charts'
+
 export default {
   name: 'AccountStatistics',
   data () {
@@ -109,9 +111,7 @@ export default {
         })
     },
     initBarChart () {
-      var that = this
-      let myChart = this.$echarts.init(document.getElementById('myChart'))
-      const echarts = that.$echarts
+      let myChart = echarts.init(document.getElementById('myChart'))
       myChart.setOption({
         xAxis: {
           type: 'category',
@@ -169,7 +169,7 @@ export default {
         seriesData.push(obj)
       }
       console.log(seriesData)
-      let myChart = this.$echarts.init(document.getElementById('myChart1'))
+      let myChart = echarts.init(document.getElementById('myChart1'))
       myChart.setOption({
         color: [ '#2db0f9', '#2ac059', '#c4e900', '#feed2d', '#ffd24c', '#ff885a', '#fb5858', '#ef8bc6', '#a18bc8', '#4b67b5' ],
         tooltip: {
@@ -208,7 +208,7 @@ export default {
       })
     },
     init3Dchart () {
-      let myChart = this.$echarts.init(document.getElementById('myChart2'))
+      let myChart = echarts.init(document.getElementById('myChart2'))
       let option = {
         grid3D: {},
         tooltip: {},

@@ -74,7 +74,7 @@ export default {
   'Res.TelNo.': '聯繫電話',
   'Mobile': '手機號碼',
   'Email': '郵箱',
-  'Nature': '性格',
+  'Nature': '性質',
   'Occupation': '職業',
   'B.R.NO.': '出生日期 ',
   'IDCard': '身份證號',
