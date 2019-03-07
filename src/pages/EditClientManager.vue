@@ -25,7 +25,7 @@
         <!--  ==================  client  =============== -->
         <v-tab-item style="background: yellow;height: auto;width:100%;">
           <v-card flat>
-            <div class="my-vuetify-css" style="width: 100%;height:140px;background: #fff;margin-bottom: 10px;padding: 10px 20px;">
+            <div class="my-vuetify-css" style="width: 100%;background: #fff;margin-bottom: 10px;padding: 10px 20px;">
               <!-- 表单第一行 -->
               <div class="clear">
                 <div class="info-item">
@@ -1419,7 +1419,7 @@
     <v-dialog v-model="isShowEFSList"  fullscreen hide-overlay transition="dialog-bottom-transition">
       <v-card>
         <v-toolbar dark color="primary">
-          <v-toolbar-title>{{$t('EFSList')}} <v-btn color="green" @click="openEFSupdata()" small><v-icon small>add</v-icon> {{$t('Add')}}</v-btn> </v-toolbar-title>
+          <v-toolbar-title>{{$t('EFSList')}} <v-btn class="bt_add" outline color="white" @click="openEFSupdata()" small><v-icon small>add</v-icon> {{$t('Add')}}</v-btn> </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
             <v-btn icon flat @click="isShowEFSList = false">
@@ -1435,7 +1435,37 @@
           :loading="efsLoading"
           class="elevation-1"
         >
-          <template slot="items" slot-scope="scope">
+        <template slot="items" slot-scope="scope">
+          <td class="text-xs-left">
+           <v-btn flat icon color="info" @click="updataFile(scope.item.imgSeqno)"><v-icon >cached</v-icon></v-btn>
+           <v-btn flat icon color="info" @click="fileDownload(scope.item.imgSeqno)"><v-icon >cloud_download</v-icon></v-btn> 
+          </td>
+          <td class="text-xs-left">{{ scope.item.imgType }}</td>
+          <td class="text-xs-left"> 
+            <v-checkbox v-model="scope.item.imgSync" true-value="Y" false-value="N" disabled hide-details></v-checkbox>
+          </td>
+          <td class="text-xs-left">{{ scope.item.imgDesc}}</td>
+          <td class="text-xs-left">{{scope.item.imgCuser}}</td>
+          <td class="text-xs-left">{{scope.item.imgCdate | formatDate}}</td>
+          <td class="text-xs-left"></td>
+          <td class="text-xs-left my-ellipsis" >{{scope.item.imgFileName }}</td>
+        </template>
+          <!-- <template slot="items" slot-scope="scope">
+              <td>
+              <v-btn color="info" icon  @click="updataFile(scope.item.imgSeqno)">
+                <v-icon >cached</v-icon>
+              </v-btn>
+              <v-btn color="info" icon  @click="fileDownload(scope.item.imgSeqno)">
+                <v-icon >cloud_download</v-icon>
+              </v-btn> -->
+              <!-- <v-btn color="info" icon  @click="previewImg(scope.item.imgSeqno)" v-if="scope.item.imgFileExt === '.jpg' || scope.item.imgFileExt === '.png'">
+                <v-icon >zoom_in</v-icon>
+              </v-btn>
+              <v-btn color="info" icon  @click="previewPdf(scope.item.imgSeqno)" v-if="scope.item.imgFileExt === '.pdf'">
+                <v-icon >zoom_in</v-icon>
+              </v-btn> -->
+              
+            <!-- </td>
             <td>{{scope.item.imgType}}</td>
             <td>
               <v-checkbox v-model="scope.item.imgSync" true-value="Y" false-value="N" disabled hide-details></v-checkbox>
@@ -1445,33 +1475,78 @@
             <td>{{scope.item.imgCdate | formatDate}}</td>
             <td></td>
             <td class="my-ellipsis">{{scope.item.imgFileName}}</td>
-            <td>
-              <v-btn color="info" icon  @click="updataFile(scope.item.imgSeqno)">
-                <v-icon >cached</v-icon>
-              </v-btn>
-              <v-btn color="info" icon  @click="fileDownload(scope.item.imgSeqno)">
-                <v-icon >cloud_download</v-icon>
-              </v-btn>
-              <v-btn color="info" icon  @click="previewImg(scope.item.imgSeqno)" v-if="scope.item.imgFileExt === '.jpg' || scope.item.imgFileExt === '.png'">
-                <v-icon >zoom_in</v-icon>
-              </v-btn>
-              <v-btn color="info" icon  @click="previewPdf(scope.item.imgSeqno)" v-if="scope.item.imgFileExt === '.pdf'">
-                <v-icon >zoom_in</v-icon>
-              </v-btn>
-              
-            </td>
-          </template>
+        
+          </template> -->
         </v-data-table>
       </v-card>
     </v-dialog>
     <!-- =============    EFS上传 11111  ==================== -->
     <v-dialog v-model="isShowAddEFS" scrollable persistent max-width="1200">
-      <v-card>
+        <v-card>
         <v-card-title>{{$t('BatchUpload')}}
         </v-card-title>
         <v-divider></v-divider>
-        <v-card-text class="min-height300 personal-data my-vuetify-css">
-          <div class="efs-edit-header">
+        <div class="search-bar" v-for="(item, index) in EFSupdataForm" :key="item._key_">
+        <div class="search-item">
+          <v-text-field
+            :label="$t('Seqno')"
+            v-model="item.imgSeqno"
+            disabled
+          ></v-text-field>
+        </div>
+        <div class="search-item">
+          <v-select
+            :items="EFSdocType" 
+            item-text="tchDspval"
+            item-value="tchCode"
+            :label="$t('Doc Type')"
+            v-model="item.imgType"
+            :rules="[verify]" 
+            :error="item.verify"
+            required
+            validate-on-blur     
+          >  
+          </v-select>
+        </div>
+        <div class="search-item condition">
+          <!-- <v-text-field
+            :items="EFSsize.tchChr1 + EFSsize.tchDspval"
+            :label="$t('SizeLimit')"
+            v-model="item.imgFileBase64"
+          ></v-text-field> -->
+          <label>SizeLimit</label>
+          <p class="limit_data">{{EFSsize.tchChr1 + EFSsize.tchDspval}}</p>
+          <p class="limit_line"></p>
+
+        </div>
+        <div class="search-item">
+           <v-text-field
+              :label="$t('Describe')"
+              v-model="item.imgDesc"
+            ></v-text-field>
+          </div>
+          <div class="search-item search_file">
+            <label>SelectFile</label>
+            <uploadfile :size="EFSsize.tchChr1" :alias="EFSfileAlias" @change="handelFile($event, index)" ></uploadfile>
+          </div>
+           <div class="search-item search_web">
+              <!-- <v-text-field :label="$t('SynctoWeb')" >
+              </v-text-field> -->
+            <label>Sync to Web</label>
+            <v-checkbox class="fileCheckbox" v-model="item.imgSync" true-value="Y" false-value="N" hide-details></v-checkbox>
+           </div>
+          <div class="search-item bt_search">
+             <v-btn icon color="red" small @click="deleteEFSlist(index)" v-if="EFSfileAlias === ''">
+                  <v-icon small color="#FFFFFF">remove</v-icon>
+                </v-btn>
+                <v-btn icon color="blue" small v-if="index === EFSupdataForm.length - 1 && EFSfileAlias === ''" @click="addUpdataItem">
+                  <v-icon small color="#FFFFFF">add</v-icon>
+                </v-btn>
+          </div>
+      </div>
+
+        <!-- <v-card-text class="min-height300 personal-data my-vuetify-css">
+           <div class="efs-edit-header">
             <v-layout row wrap justify-space-around>
               <v-flex xs1>{{$t('Seqno')}}</v-flex>
               <v-flex xs1>{{$t('DocType')}}</v-flex>
@@ -1527,17 +1602,18 @@
             </v-layout>
           </div>
           
-        </v-card-text>
-        <v-divider></v-divider>
-        <v-card-actions>
+        </v-card-text>  -->
+
+        <!-- <v-divider></v-divider> -->
+        <!-- <v-card-actions> -->
             <div class="efsPass">
               <span class="animated shake" :key="animateKey" v-show="isEFSisPass">{{$t('DocType/Describe/SelectFileIsRrequired!')}}</span>
             </div>
           <v-layout justify-end>
             <v-btn color="blue darken-1" flat @click="closeUploadDialog">{{$t('Close')}}</v-btn>
-            <v-btn color="blue darken-1" flat @click="submitFile" :loading="uploadLoading">{{$t('Save')}}</v-btn>
+            <v-btn color="blue darken-2" flat @click="submitFile" :loading="uploadLoading">{{$t('Save')}}</v-btn>
           </v-layout>
-        </v-card-actions>
+        <!-- </v-card-actions> -->
       </v-card>
     </v-dialog>
     <!-- 图片预览 -->
@@ -2273,14 +2349,15 @@ export default {
       isShowEFSList: false,
       efsLoading: false,
       EFSheader: [
-        { text: 'Doc Type' },
-        { text: 'Sync to Web' },
-        { text: 'Document Description' },
-        { text: 'Created by' },
-        { text: 'Created on' },
-        { text: 'File Modified' },
-        { text: 'File Name' },
-        { text: 'Operation' }
+        { text: ' ', sortable: false },
+        { text: 'Doc Type', value: 'imgType' },
+        { text: 'Sync to Web', value: 'imgSync' },
+        { text: 'Document Description', value: 'imgDesc' },
+        { text: 'Created by', value: 'imgCuser' },
+        { text: 'Created on', value: 'imgCdate' + 'formatDate' },
+        { text: 'File Modified', value: ' ' },
+        { text: 'File Name', value: 'imgFileName' }
+        // { text: 'Operation' }
       ],
       EFStableData: [],
       // 22222
@@ -2833,6 +2910,7 @@ export default {
       this.$fetch('/ipoly/clientManager/getTchfl.json')
         .then(res => {
           this.EFSdocType = res.body.docType
+          console.log(res.body.docType)
           this.EFSsize = res.body.fileInfo
         })
     },
@@ -2888,15 +2966,56 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.search-bar {
+  padding: 10px 28px 10px 28px;
+  margin-bottom: 0px;
+}
+.search-bar .search-item {
+  max-width: 100%;
+  // .cb_web{
+  //   vertical-align: middle;
+  //   margin-bottom: 15px;
+  // }
+}
+.search-item .search_web{
+  .fileCheckbox{
+    vertical-align: middle;
+    margin-bottom: 15px;
+  }
+}
+.search-item .bt_search{
+  vertical-align: middle;
+}
+.search-bar .search-item:nth-child(1) {
+  min-width: 114px !important;
+}
+.search-bar .search-item:nth-child(2) {
+   width: 140px !important;
+}
+.search-bar .search-item:nth-child(3) {
+   min-width: 120px !important;
+}
+.search-bar .search-item:nth-child(4) {
+   min-width: 180px !important;
+}
+.search-bar .search-item:nth-child(5) {
+   min-width: 200px !important;
+}
+.v-btn--icon.v-btn--small{
+  border-radius: 50%;
+}
+.v-btn.v-btn--outline{
+  border-radius: 5px;
+}
 .clear {
   overflow: hidden;
 }
 .container {
   padding: 0!important;
 }
-.theme--light.v-sheet {
-  background: rgb(242,248,251);
-}
+// .theme--light.v-sheet {
+//   // background: rgb(242,248,251);
+// }
 .my-content {
   background: rgb(242,248,251);
 }
@@ -3009,6 +3128,23 @@ export default {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+.elevation-1 tr:nth-child(even) td {
+  background-color: #f7f7f7 !important;
+}
+.elevation-1 tr:nth-child(even):hover td {
+  background-color: #ceedfe !important;
+}
+.theme--light.v-table tbody tr:not(:last-child) {
+  border: none;
+}
+table.v-table thead th {
+  font-size: 14px;
+  color: #000;
+  font-weight: bolder;
+}
+// .v-btn--icon {
+//   border-radius: 10%;
+// }
 
 .fade-enter-active,
 .fade-leave-active {
@@ -3077,6 +3213,9 @@ export default {
 .v-input__slot {
   
 }
+.elevation-1 tr:hover td {
+    background-color: #ceedfe;
+}
 .no-border .v-input__slot {
   border: none;
 }
@@ -3101,6 +3240,70 @@ export default {
 .item-checkbox .v-input--selection-controls{
   padding: 0;
   margin: 0;
+}
+.fileCheckbox .v-input--selection-controls {
+  margin-top:4px;
+}
+.search-item.bt_search{
+  margin-top: 17px;
+}
+.inputBoder{
+  height: 30px !important;
+  background:none !important;
+  border-bottom: 1px solid #949494;
+  box-shadow:none !important;
+  border-image:none !important;
+}
+.theme--light.v-datatable thead th.column.sortable.active{
+    color: rgba(0,0,0,0.87);
+    font-size: 14px;
+    font-weight: bold;
+}
+.search-item.search_file{
+  margin-top: 20px;
+  label{
+      color: rgba(0,0,0,0.54);
+      position: absolute;
+      margin-top: -16px;
+      font-size: 12px;
+  }
+}
+.search-item.condition{
+  label{
+      color: rgba(0,0,0,0.54);
+      font-size:12px;
+  }
+}
+.search-item.search_web{
+   label{
+      color: rgba(0,0,0,0.54);
+      font-size:12px;
+      margin-left: 5px;
+  }
+  .fileCheckbox{
+     margin-left: 31px;
+     margin-top:5px;
+  }
+}
+.blue--text.text--darken-1{
+  color: rgba(0,0,0,0.54) !important;
+}
+.blue--text.text--darken-2{
+  color: #1e88e5  !important;
+}
+// .search-bar .search-item .cb_web{
+//   margin-left: 31px;
+//   margin-top:5px;
+// }
+.limit_line{
+  width:100%;
+  height: 1px;
+  background: rgba(0,0,0,0.42) !important;
+  margin-bottom: 6px;
+}
+.limit_data{
+  margin-bottom: 6px;
+  font-size:14px;
 }
 .dialog-content {
   .v-text-field.v-text-field--solo {

@@ -20,14 +20,14 @@
         <div class="search-item">
           <v-btn color="info" @click="getData" :loading="loading"><v-icon small>search</v-icon> {{$t('Search')}}</v-btn>
         </div>
-        <v-radio-group v-model="radios" row>
-          <v-radio label="Pie Charts" :value="1"></v-radio>
-          <v-radio label="Bar Charts" :value="2"></v-radio>
+        <v-radio-group v-model="radios" row class="rd_choose">
+          <v-radio label="Bar Charts" :value="1"></v-radio>
+          <v-radio label="Pie Charts" :value="2"></v-radio>
           <v-radio label="3D Charts" :value="3"></v-radio>
         </v-radio-group>
       </div>
       
-      <div>
+      <div style="width:100%;">
         <div class="charts loading" v-if="loading">{{$t('Loading...')}}</div>
         <div class="charts loading" v-if="nodata">{{$t('NoData')}}</div>
         <div id="myChart" class="charts" v-show="radios === 1 && !loading && !nodata"></div>
@@ -41,6 +41,7 @@
 <script>
 import data from '../../static/3dChart'
 import 'echarts-gl/dist/echarts-gl.min.js'
+
 export default {
   name: 'AccountStatistics',
   data () {
@@ -108,19 +109,47 @@ export default {
         })
     },
     initBarChart () {
+      var that = this
       let myChart = this.$echarts.init(document.getElementById('myChart'))
+      const echarts = that.$echarts
       myChart.setOption({
         xAxis: {
           type: 'category',
-          data: this.chartTitle
+          data: this.chartTitle,
+          axisLabel: { textStyle: {color: '#999'} },
+          axisTick: { show: false },
+          axisLine: { show: false }
         },
         yAxis: {
-          type: 'value'
+          type: 'value',
+          axisLine: { show: false },
+          axisTick: { show: false },
+          axisLabel: { textStyle: { color: '#999' } },
+          splitLine: { show: true, lineStyle: { type: 'dashed' } }
         },
-        series: [{
-          data: this.chartData,
-          type: 'bar'
-        }]
+        series: [
+          {
+            type: 'bar',
+            barGap: '10%',
+            barCategoryGap: '40%',
+            animation: false
+          },
+          {
+            type: 'bar',
+            itemStyle: {
+              normal: {
+                barBorderRadius: [10, 10, 0, 0],
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1,
+                  [
+                    {offset: 0, color: '#14c7de'},
+                    {offset: 0.5, color: '#0db5ea'},
+                    {offset: 1, color: '#08a6f4'}
+                  ]
+                )
+              }
+            },
+            data: this.chartData
+          }]
       })
     },
     initPieCahrt () {
@@ -139,8 +168,10 @@ export default {
         obj['value'] = this.chartData[i]
         seriesData.push(obj)
       }
+      console.log(seriesData)
       let myChart = this.$echarts.init(document.getElementById('myChart1'))
       myChart.setOption({
+        color: [ '#2db0f9', '#2ac059', '#c4e900', '#feed2d', '#ffd24c', '#ff885a', '#fb5858', '#ef8bc6', '#a18bc8', '#4b67b5' ],
         tooltip: {
           trigger: 'item',
           formatter: '{a} <br/>{b}: {c} ({d}%)'
@@ -157,8 +188,13 @@ export default {
           {
             name: 'ratio:',
             type: 'pie',
-            radius: '55%',
-            center: ['50%', '50%'],
+            radius: ['50%', '70%'],
+            label: {
+              formatter: '{d}%'
+            },
+            // center: ['50%', '50%'],
+            selectedMode: 'single',
+            avoidLabelOverlap: false,
             data: seriesData,
             itemStyle: {
               emphasis: {
@@ -252,10 +288,15 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.accent--text{
+  color: #06a1f7 !important;
+  caret-color: #06a1f7 !important;
+}
 .charts {
-  width: 1200px;
+  width: 1555px;
   height: 600px;
   margin: 0 auto;
+  background: #ffffff;
 }
 .right {
   float: right;
@@ -269,6 +310,42 @@ export default {
   text-align: center;
   line-height: 500px;
   font-size: 20px;
+}
+.my-shadow{
+  box-shadow: none;
+}
+.page-padding {
+    background-color: #f2f8fb;
+    }
+.v-content__wrap{
+  background-color: #f2f8fb !important;
+}
+// .v-input--selection-controls.v-input .v-label{
+//   font-size: 14px !important;
+//   color: #8e8e8e !important;
+// }
+.v-input--selection-controls__ripple.accent--text{
+  color: #06a1f7 !important;
+  caret-color: #06a1f7 !important;
+}
+.v-icon.material-icons.theme--light.accent--text{
+  color: #06a1f7 !important;
+  caret-color: #06a1f7 !important;
+}
+.accent--text:active{
+  color: #06a1f7 !important;
+  caret-color: #06a1f7 !important;
+}
+.rd_choose{
+  label{
+  font-size: 14px !important;
+  color: #8e8e8e !important;
+  }
+}
+.v-btn{
+  border-radius: 3px !important;
+  height: 25px;
+  margin: 19px 8px;
 }
 </style>
 

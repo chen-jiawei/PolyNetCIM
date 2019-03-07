@@ -1,31 +1,43 @@
-:root{
-  --sidebar-width: 200px;
-}
-body{
-  font-family: Helvetica, Tahoma, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei" sans-serif;
+:root {
+    --sidebar-width: 200px;
 }
 
-.content{
-  background: #f9f9f9;
+body {
+    font-family: Helvetica, Tahoma, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei" sans-serif;
 }
-table.table tbody td{
-  font-weight: normal;
+
+.content {
+    background: #f9f9f9;
 }
-.jl{
-  justify-content: flex-start;
+
+table.table tbody td {
+    font-weight: normal;
 }
-.jc{
-  justify-content: center;
+
+.jl {
+    justify-content: flex-start;
 }
-.jr{
-  justify-content: flex-end;
+
+.jc {
+    justify-content: center;
 }
-.fixed-bottom{
-  position: fixed;
-  width:300px;
-  bottom:0
+
+.jr {
+    justify-content: flex-end;
 }
-.crud-grid-thumb{
-  margin:0.5em;
-  max-height:5em;
+
+.fixed-bottom {
+    position: fixed;
+    width: 300px;
+    bottom: 0
+}
+
+.crud-grid-thumb {
+    margin: 0.5em;
+    max-height: 5em;
+}
+
+.accent--text {
+    color: #06a1f7 !important;
+    caret-color: #06a1f7 !important;
 }
