@@ -64,7 +64,7 @@
           <v-btn color="info" icon to="/client-manager-edit/add"><v-icon small>add</v-icon></v-btn>
         </div>
         <div class="search-item" v-if="authority == 99 || authority == 70">
-          <v-btn color="info" to="/client-manager-edit/add">print</v-btn>
+          <v-btn color="info" @click="isPrint = true">print</v-btn>
         </div>
       </div>
 
@@ -165,7 +165,7 @@ export default {
   data () {
     return {
       authority: null,
-      isPrint: true,
+      isPrint: false,
       file: '',
       isLoading: false,
       pageLangth: 0,
@@ -358,11 +358,9 @@ export default {
       this.queryList()
     },
     submitPrint () {
-      console.log(this.printForm)
-      this.$fetch(`/ipoly/clientManager/clientDownload.json?online=false&cliLnameFrom=${this.printForm.from}&cliLnameTo=${this.printForm.to}&cliType=${this.printForm.type}`)
-      .then(res => {
-        console.log(res)
-      })
+      let src = process.env.BASE_API + `/ipoly/clientManager/clientDownload.json?online=false&cliLnameFrom=${this.printForm.from}&cliLnameTo=${this.printForm.to}&cliType=${this.printForm.type}`
+      window.open(src)
+      this.isPrint = false
     }
   }
 }
