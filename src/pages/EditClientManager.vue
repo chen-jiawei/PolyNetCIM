@@ -839,7 +839,7 @@
         <!-- ===============  Attentions列表  ================= -->
         <v-tab-item>
           <v-card flat>
-            <div>
+            <div v-if="authority == 99 || authority == 70">
               <v-btn class="f-right" color="info" @click="addAttentions"><v-icon>add</v-icon> {{$t('Add')}}</v-btn>
             </div>
             <v-data-table
@@ -859,6 +859,7 @@
                 <td class="text-xs-left">{{ props.item.claFaxidd + props.item.claFax }}</td>
                 <td class="text-xs-left">
                   <v-btn 
+                    v-if="authority == 99 || authority == 70 || authority == 50"
                     color="info" 
                     small 
                     @click="editAttentions(clientForm.cliCode, props.item.claItem)"
@@ -1409,7 +1410,13 @@
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn flat @click="addAndUpdata" :loading="attentionLoading">{{$t('Save')}}</v-btn>
+          <v-btn 
+            flat 
+            @click="addAndUpdata" 
+            :loading="attentionLoading"
+          >
+            {{$t('Save')}}
+          </v-btn>
           <v-btn flat @click="closeDialog">{{$t('Close')}}</v-btn>
         </v-card-actions>
       </v-card>
@@ -1419,7 +1426,7 @@
     <v-dialog v-model="isShowEFSList"  fullscreen hide-overlay transition="dialog-bottom-transition">
       <v-card>
         <v-toolbar dark color="primary">
-          <v-toolbar-title>{{$t('EFSList')}} <v-btn class="bt_add" outline color="white" @click="openEFSupdata()" small><v-icon small>add</v-icon> {{$t('Add')}}</v-btn> </v-toolbar-title>
+          <v-toolbar-title>{{$t('EFSList')}} <v-btn v-if="authority == 99 || authority == 70" class="bt_add" outline color="white" @click="openEFSupdata()" small><v-icon small>add</v-icon> {{$t('Add')}}</v-btn> </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
             <v-btn icon flat @click="isShowEFSList = false">
@@ -1438,7 +1445,7 @@
         <template slot="items" slot-scope="scope">
           <td class="text-xs-left">
            <v-btn flat icon color="info" @click="updataFile(scope.item.imgSeqno)"><v-icon >cached</v-icon></v-btn>
-           <v-btn flat icon color="info" @click="fileDownload(scope.item.imgSeqno)"><v-icon >cloud_download</v-icon></v-btn> 
+           <v-btn  v-if="authority == 99" flat icon color="info" @click="fileDownload(scope.item.imgSeqno)"><v-icon >cloud_download</v-icon></v-btn> 
           </td>
           <td class="text-xs-left">{{ scope.item.imgType }}</td>
           <td class="text-xs-left"> 
@@ -1653,6 +1660,7 @@ export default {
   data () {
     const cliCode = this.$route.params.cliCode
     return {
+      authority: null,
       cliCode: cliCode,
       forbidChange: false,
       showSuccessMsg: false,
@@ -2387,6 +2395,9 @@ export default {
       uploadLoading: false,
       animateKey: 0
     }
+  },
+  created () {
+    this.authority = helper.ls.get('authority')
   },
   mounted () {
     const cliCode = this.$route.params.cliCode

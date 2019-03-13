@@ -172,6 +172,7 @@ import i18n from '../i18n/'
 export default {
   name: 'Main',
   created () {
+    this.authority()
     this.userName = helper.ls.get('PolyName') || null
     if (!this.userName) this.$router.push('/login')
   },
@@ -194,6 +195,18 @@ export default {
     source: String
   },
   methods: {
+    authority () {
+      this.$fetch({
+        method: 'POST',
+        url: '/ipoly/user/getAuthorityInfo.json'
+      })
+        .then(res => {
+          if (res && res.body) {
+            let { ugsCli } = res.body
+            helper.ls.set('authority', ugsCli)
+          }
+        })
+    },
     sss () {},
     chooseLang (lang) {
       if (lang === '繁體中文') {
@@ -210,9 +223,6 @@ export default {
         url: '/ipoly/user/loginOut.json'
       })
       .then(res => {
-        if (res.responseCode === 1000) {
-          helper.ls.set('PolyName', null)
-        }
         this.$router.push('/login')
       })
     }

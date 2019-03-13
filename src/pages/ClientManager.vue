@@ -60,8 +60,11 @@
         <div class="search-item">
           <v-btn color="info" icon @click="resetList"><v-icon small>refresh</v-icon></v-btn>
         </div>
-        <div class="search-item">
+        <div class="search-item" v-if="authority == 99 || authority == 70">
           <v-btn color="info" icon to="/client-manager-edit/add"><v-icon small>add</v-icon></v-btn>
+        </div>
+        <div class="search-item" v-if="authority == 99 || authority == 70">
+          <v-btn color="info" to="/client-manager-edit/add">print</v-btn>
         </div>
       </div>
 
@@ -73,7 +76,15 @@
         class="data-tabel"
       >
         <template slot="items" slot-scope="props">
-          <td class="text-xs-left"><v-btn flat icon color="info" :to="`/client-manager-edit/${props.item.cliCode}`"><v-icon small>edit</v-icon></v-btn></td>
+          <td class="text-xs-left">
+            <v-btn 
+              v-if="authority == 99 || authority == 70 || authority == 50"
+              flat icon color="info" 
+              :to="`/client-manager-edit/${props.item.cliCode}`"
+              >
+              <v-icon small>edit</v-icon>
+            </v-btn>
+          </td>
           <td class="text-xs-left">{{ props.item.cliLname }}</td>
           <td class="text-xs-left">{{ props.item.cliCode }}</td>
           <td class="text-xs-left">{{ props.item.cliMainagt }}</td>
@@ -100,14 +111,61 @@
         <v-btn class="goJump" small @click="jump(currentNum)">Go</v-btn>
       </div>
     </div>
+    
+    <v-layout row justify-center>
+      <v-dialog v-model="isPrint" persistent max-width="700px">
+        <v-card>
+          <v-card-text>
+            <v-container grid-list-md>
+              <div class="print-item">
+                <div class="name">Client Name：</div>
+                <div>Form</div>
+                <div class="input">
+                  <v-text-field
+                    solo
+                    v-model="printForm.from"
+                  ></v-text-field>
+                </div>
+                <div>To</div>
+                <div class="input">
+                  <v-text-field
+                    solo
+                    v-model="printForm.to"
+                  ></v-text-field>
+                </div>
+              </div>
+              <div class="print-item">
+                <div class="name">Client Type：</div>
+                <div class="input">
+                  <v-select
+                    :items="types"
+                    item-text="label"
+                    item-value="value"
+                    solo
+                    v-model="printForm.type"
+                  ></v-select>
+                </div>
+              </div>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" flat @click="submitPrint">print</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-layout>
   </div>
 </template>
 <script>
 // import myUpload from '../components/uploadFile.vue'
+import helper from '../helper'
 export default {
   name: 'ClientManager',
   data () {
     return {
+      authority: null,
+      isPrint: true,
       file: '',
       isLoading: false,
       pageLangth: 0,
@@ -217,8 +275,16 @@ export default {
           value: 'cliTelidd'
         }
       ],
-      dataTable: []
+      dataTable: [],
+      printForm: {
+        from: '',
+        to: '',
+        type: ''
+      }
     }
+  },
+  created () {
+    this.authority = helper.ls.get('authority')
   },
   mounted () {
     this.queryClientType()
@@ -290,6 +356,13 @@ export default {
         this.params.page.currentPageNo = parseInt(type)
       }
       this.queryList()
+    },
+    submitPrint () {
+      console.log(this.printForm)
+      this.$fetch(`/ipoly/clientManager/clientDownload.json?online=false&cliLnameFrom=${this.printForm.from}&cliLnameTo=${this.printForm.to}&cliType=${this.printForm.type}`)
+      .then(res => {
+        console.log(res)
+      })
     }
   }
 }
@@ -346,6 +419,13 @@ table.v-table thead th {
   margin-right: 10px;
   position: relative;
   top: 2px;
+}
+.print-item {
+  height: 46px;
+  line-height: 46px;
+  div {
+    float: left;
+  }
 }
 
 </style>

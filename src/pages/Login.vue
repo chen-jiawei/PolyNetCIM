@@ -206,6 +206,9 @@ export default {
     }
   },
   created () {
+    helper.ls.set('userName', null)
+    helper.ls.set('PolyName', null)
+    helper.ls.set('authority', null)
     document.onkeydown = () => {
       let key = window.event.keyCode
       if (key === 13) {
