@@ -299,12 +299,13 @@ export default {
       }
     }
   },
-  created () {
-    this.authority = helper.ls.get('authority')
-  },
   mounted () {
     this.queryClientType()
     this.queryList()
+    let time = setTimeout(() => {
+      this.authority = helper.ls.get('authority')
+      clearTimeout(time)
+    }, 500)
   },
   methods: {
     /**
