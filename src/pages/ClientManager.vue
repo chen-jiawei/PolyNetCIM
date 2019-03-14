@@ -119,30 +119,39 @@
             <v-container grid-list-md>
               <div class="print-item">
                 <div class="name">Client Name：</div>
-                <div>Form</div>
+                <div style="margin: 0 10px;">Form</div>
                 <div class="input">
                   <v-text-field
                     solo
                     v-model="printForm.from"
+                    :rules="[verify]" 
+                    required
+                    :error="printValid.from"
                   ></v-text-field>
                 </div>
-                <div>To</div>
+                <div style="margin: 0 10px;">To</div>
                 <div class="input">
                   <v-text-field
                     solo
                     v-model="printForm.to"
+                    :rules="[verify]" 
+                    required
+                    :error="printValid.to"
                   ></v-text-field>
                 </div>
               </div>
               <div class="print-item">
                 <div class="name">Client Type：</div>
-                <div class="input">
+                <div class="input" style="margin-left: 60px;">
                   <v-select
                     :items="types"
                     item-text="label"
                     item-value="value"
                     solo
                     v-model="printForm.type"
+                    :rules="[verify]" 
+                    required
+                    :error="printValid.type"
                   ></v-select>
                 </div>
               </div>
@@ -150,6 +159,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" flat @click="isPrint = false">close</v-btn>
             <v-btn color="blue darken-1" flat @click="submitPrint">print</v-btn>
           </v-card-actions>
         </v-card>
@@ -280,6 +290,11 @@ export default {
         from: '',
         to: '',
         type: ''
+      },
+      printValid: {
+        from: false,
+        to: false,
+        type: false
       }
     }
   },
@@ -358,10 +373,27 @@ export default {
       this.queryList()
     },
     submitPrint () {
+      let pass = true
+      for (let i in this.printForm) {
+        if (!this.printForm[i]) {
+          this.printValid[i] = true
+          pass = false
+        }
+      }
+      if (!pass) return
       let src = process.env.BASE_API + `/ipoly/clientManager/clientDownload.json?online=false&cliLnameFrom=${this.printForm.from}&cliLnameTo=${this.printForm.to}&cliType=${this.printForm.type}`
       // let src = process.env.BASE_API + `/ipoly/clientManager/clientDownload.json?online=false&cliLnameFrom=C00&cliLnameTo=C01&cliType=C`
       window.open(src)
       this.isPrint = false
+    },
+    /**
+     * 校验规则 为空判断
+     */
+    verify (v) {
+      if (v === null || v === '') {
+        return 'Is required!'
+      }
+      return true
     }
   }
 }

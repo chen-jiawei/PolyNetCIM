@@ -2656,30 +2656,8 @@ export default {
     verifyForm (dataName) {
       if (dataName === 'client') {
         return this.verifyStep(this.clientForm, this.formValid)
-        // for (let name in this.clientForm) {
-        //   if (this.clientForm[name] === null || this.clientForm[name] === '') {
-        //     if (name in this.formValid) {
-        //       this.formValid[name] = true
-        //       this.errorMsg = this.$t('Pleasechecktherequiredfields')
-        //       this.showErrorMsg = true
-        //       this.closeAlert()
-        //       isPass = false
-        //     }
-        //   }
-        // }
       } else if (dataName === 'attentions') {
         return this.verifyStep(this.attentionsForm, this.attentionsValid)
-        // for (let name in this.attentionsForm) {
-        //   if (this.attentionsForm[name] === null || this.attentionsForm[name] === '') {
-        //     if (name in this.attentionsValid) {
-        //       this.attentionsValid[name] = true
-        //       this.errorMsg = this.$t('Pleasechecktherequiredfields')
-        //       this.showErrorMsg = true
-        //       this.closeAlert()
-        //       isPass = false
-        //     }
-        //   }
-        // }
       }
     },
     verifyStep (obj1, obj2) {
