@@ -55,16 +55,16 @@
         </div>
 
         <div class="search-item">
-          <v-btn color="info" icon @click="searchList" :loading="isLoading"><v-icon small>search</v-icon></v-btn>
+          <v-btn color="info" icon @click="searchList" :loading="isLoading"><v-icon size="20">search</v-icon></v-btn>
         </div>
         <div class="search-item">
-          <v-btn color="info" icon @click="resetList"><v-icon small>refresh</v-icon></v-btn>
+          <v-btn color="info" icon @click="resetList"><v-icon size="20">refresh</v-icon></v-btn>
         </div>
         <div class="search-item" v-if="authority == 99 || authority == 70">
-          <v-btn color="info" icon to="/client-manager-edit/add"><v-icon small>add</v-icon></v-btn>
+          <v-btn color="info" icon to="/client-manager-edit/add"><v-icon size="20">add</v-icon></v-btn>
         </div>
         <div class="search-item" v-if="authority == 99 || authority == 70">
-          <v-btn color="info" @click="isPrint = true">print</v-btn>
+          <v-btn color="info" icon @click="isPrint = true"><v-icon size="20">print</v-icon></v-btn>
         </div>
       </div>
 
@@ -116,11 +116,12 @@
       <v-dialog v-model="isPrint" persistent max-width="700px">
         <v-card>
           <v-card-text>
+            <h3 style="height: 40px;">Print Client List</h3>
+            <div class="printhr"></div>
             <v-container grid-list-md>
               <div class="print-item">
                 <div class="name">Client Name：</div>
-                <div style="margin: 0 10px;">Form</div>
-                <div class="input">
+                <div class="input" style="margin-left: 50px;">
                   <v-text-field
                     solo
                     v-model="printForm.from"
@@ -142,7 +143,7 @@
               </div>
               <div class="print-item">
                 <div class="name">Client Type：</div>
-                <div class="input" style="margin-left: 60px;">
+                <div class="input" style="margin-left: 50px;">
                   <v-select
                     :items="types"
                     item-text="label"
@@ -159,8 +160,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click="isPrint = false">close</v-btn>
-            <v-btn color="blue darken-1" flat @click="submitPrint">print</v-btn>
+            <v-btn color="blue darken-1" flat @click="isPrint = false" class="printtext">close</v-btn>
+            <v-btn flat @click="submitPrint" class="printtext" style="color: #1976d2;">print</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -458,5 +459,12 @@ table.v-table thead th {
     float: left;
   }
 }
-
+.printhr {
+  width: 100%;
+  height: 1px;
+  background: #ccc;
+}
+.printtext {
+  font-weight: bolder;
+}
 </style>
