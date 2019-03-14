@@ -223,6 +223,7 @@ export default {
         url: '/ipoly/user/loginOut.json'
       })
       .then(res => {
+        helper.ls.set('polyRouter', null)
         this.$router.push('/login')
       })
     }

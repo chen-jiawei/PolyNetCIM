@@ -359,6 +359,7 @@ export default {
     },
     submitPrint () {
       let src = process.env.BASE_API + `/ipoly/clientManager/clientDownload.json?online=false&cliLnameFrom=${this.printForm.from}&cliLnameTo=${this.printForm.to}&cliType=${this.printForm.type}`
+      // let src = process.env.BASE_API + `/ipoly/clientManager/clientDownload.json?online=false&cliLnameFrom=C00&cliLnameTo=C01&cliType=C`
       window.open(src)
       this.isPrint = false
     }

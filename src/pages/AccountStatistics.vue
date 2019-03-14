@@ -168,7 +168,6 @@ export default {
         obj['value'] = this.chartData[i]
         seriesData.push(obj)
       }
-      console.log(seriesData)
       let myChart = echarts.init(document.getElementById('myChart1'))
       myChart.setOption({
         color: [ '#2db0f9', '#2ac059', '#c4e900', '#feed2d', '#ffd24c', '#ff885a', '#fb5858', '#ef8bc6', '#a18bc8', '#4b67b5' ],

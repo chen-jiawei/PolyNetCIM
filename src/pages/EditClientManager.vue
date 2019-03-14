@@ -2921,7 +2921,6 @@ export default {
       this.$fetch('/ipoly/clientManager/getTchfl.json')
         .then(res => {
           this.EFSdocType = res.body.docType
-          console.log(res.body.docType)
           this.EFSsize = res.body.fileInfo
         })
     },

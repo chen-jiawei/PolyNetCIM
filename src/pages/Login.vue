@@ -181,7 +181,11 @@ export default {
         } else {
           this.showErrorMsg = false
           helper.ls.set('PolyName', this.name)
-          this.$router.push('/')
+          if (helper.ls.get('polyRouter')) {
+            this.$router.push(helper.ls.get('polyRouter'))
+          } else {
+            this.$router.push('/')
+          }
         }
       })
     },

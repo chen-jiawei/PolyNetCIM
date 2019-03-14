@@ -54,8 +54,8 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+  helper.ls.set('polyRouter', from.path)
   const name = helper.ls.get('PolyName')
-  console.log(to)
   if (to.path.indexOf('login') === -1) {
     if (typeof name !== 'undefined' && !name) {
       next('/login')
