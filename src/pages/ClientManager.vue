@@ -468,4 +468,8 @@ table.v-table thead th {
 .printtext {
   font-weight: bolder;
 }
+.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
+  box-shadow: none!important;
+  border-bottom: 1px solid #d2d2d2 !important;
+}
 </style>
