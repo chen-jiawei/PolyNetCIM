@@ -166,5 +166,9 @@ export default {
   'NotPrintReceipt': '沒有打印收據',
   'PrintStaternentOfAccount': '打印會計報表',
   'ApplyRoundinginDebitNote': '申請轉賬借方票據',
-  'DocType/Describe/SelectFileIsRrequired!': '文檔類型/描述/選擇文件都是必要的'
+  'DocType/Describe/SelectFileIsRrequired!': '文檔類型/描述/選擇文件都是必要的',
+  'PrintClientList': '打印客戶名單',
+  'ClientName': '客戶名稱：',
+  'To': '至',
+  'Print': '打印'
 }

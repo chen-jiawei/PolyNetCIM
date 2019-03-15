@@ -116,11 +116,11 @@
       <v-dialog v-model="isPrint" persistent max-width="700px">
         <v-card>
           <v-card-text>
-            <h3 style="height: 40px;">Print Client List</h3>
+            <h3 style="height: 40px;">{{$t('PrintClientList')}}</h3>
             <div class="printhr"></div>
             <v-container grid-list-md>
               <div class="print-item">
-                <div class="name">Client Name：</div>
+                <div class="name">{{$t('ClientName')}}</div>
                 <div class="input" style="margin-left: 50px;">
                   <v-text-field
                     solo
@@ -130,7 +130,7 @@
                     :error="printValid.from"
                   ></v-text-field>
                 </div>
-                <div style="margin: 0 10px;">To</div>
+                <div style="margin: 0 10px;">{{$t('To')}}</div>
                 <div class="input">
                   <v-text-field
                     solo
@@ -142,7 +142,7 @@
                 </div>
               </div>
               <div class="print-item">
-                <div class="name">Client Type：</div>
+                <div class="name">{{$t('ClientType')}}：</div>
                 <div class="input" style="margin-left: 50px;">
                   <v-select
                     :items="types"
@@ -160,8 +160,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click="isPrint = false" class="printtext">close</v-btn>
-            <v-btn flat @click="submitPrint" class="printtext" style="color: #1976d2;">print</v-btn>
+            <v-btn color="blue darken-1" flat @click="isPrint = false" class="printtext">{{$t('Close')}}</v-btn>
+            <v-btn flat @click="submitPrint" class="printtext" style="color: #1976d2;">{{$t('Print')}}</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>

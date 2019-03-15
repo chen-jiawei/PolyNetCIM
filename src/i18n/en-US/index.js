@@ -166,5 +166,9 @@ export default {
   'NotPrintReceipt': 'Not Print Receipt',
   'PrintStaternentOfAccount': 'Print Staternent Of Account',
   'ApplyRoundinginDebitNote': 'Apply Roundingin Debit Note',
-  'DocType/Describe/SelectFileIsRrequired!': 'Doc Type/Describe/Select File Is Rrequired!'
+  'DocType/Describe/SelectFileIsRrequired!': 'Doc Type/Describe/Select File Is Rrequired!',
+  'PrintClientList': 'Print Client List',
+  'ClientName': 'Client Name：',
+  'To': 'To',
+  'Print': 'Print'
 }
