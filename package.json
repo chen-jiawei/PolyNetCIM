@@ -1,8 +1,8 @@
 {
-    "name": "vue-adminify",
+    "name": "vue-admin",
     "version": "1.0.0",
     "description": "An Admin dashboard based on Vuetify",
-    "author": "Johnny.Wu <wu-xuesong@qq.com>",
+    "author": "374255493@qq.com",
     "private": true,
     "scripts": {
         "dev": "node build/dev-server.js",
