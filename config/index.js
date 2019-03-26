@@ -1,6 +1,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path')
-
+let BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
   build: {
     env: require('./prod.env'),
@@ -34,5 +35,11 @@ module.exports = {
     // In our experience, they generally work as expected,
     // just be aware of this issue when enabling this option.
     cssSourceMap: false
+  },
+  plugins: [new BundleAnalyzerPlugin()],
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin()
+    ]
   }
 }

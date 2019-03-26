@@ -54,7 +54,7 @@
           ></v-select>
         </div>
 
-        <div class="search-item">
+        <div class="search-item" v-if="authority != null">
           <v-btn color="info" icon @click="searchList" :loading="isLoading"><v-icon size="20">search</v-icon></v-btn>
         </div>
         <div class="search-item">
@@ -338,9 +338,11 @@ export default {
         body: this.params
       })
       .then(res => {
-        this.dataTable = res.body.data
-        this.pageLangth = res.body.page.totalPageNum
         this.isLoading = false
+        if (res.body) {
+          this.dataTable = res.body.data
+          this.pageLangth = res.body.page.totalPageNum
+        }
       })
     },
     /**

@@ -1,7 +1,5 @@
 <template>
   <div> 
-    <!-- <embed :src="testIMG" type="application/pdf" width="100%" height="100%" style="position:fixed;top:0;left:0;z-index:99999999;" v-if="testIMG !== ''"> -->
-    <!-- <pdf :src="testIMG" style="width:50%;height:50%;position:fixed;top:0;left:0;z-index:99999999;" v-if="testIMG !== ''"></pdf> -->
     <v-alert class="my-alert" color="#FB8C00" :value="showErrorMsg" type="warning" transition="scale-transition">
       {{errorMsg}}
     </v-alert>
@@ -1457,33 +1455,6 @@
           <td class="text-xs-left"></td>
           <td class="text-xs-left my-ellipsis" >{{scope.item.imgFileName }}</td>
         </template>
-          <!-- <template slot="items" slot-scope="scope">
-              <td>
-              <v-btn color="info" icon  @click="updataFile(scope.item.imgSeqno)">
-                <v-icon >cached</v-icon>
-              </v-btn>
-              <v-btn color="info" icon  @click="fileDownload(scope.item.imgSeqno)">
-                <v-icon >cloud_download</v-icon>
-              </v-btn> -->
-              <!-- <v-btn color="info" icon  @click="previewImg(scope.item.imgSeqno)" v-if="scope.item.imgFileExt === '.jpg' || scope.item.imgFileExt === '.png'">
-                <v-icon >zoom_in</v-icon>
-              </v-btn>
-              <v-btn color="info" icon  @click="previewPdf(scope.item.imgSeqno)" v-if="scope.item.imgFileExt === '.pdf'">
-                <v-icon >zoom_in</v-icon>
-              </v-btn> -->
-              
-            <!-- </td>
-            <td>{{scope.item.imgType}}</td>
-            <td>
-              <v-checkbox v-model="scope.item.imgSync" true-value="Y" false-value="N" disabled hide-details></v-checkbox>
-            </td>
-            <td>{{scope.item.imgDesc}}</td>
-            <td>{{scope.item.imgCuser}}</td>
-            <td>{{scope.item.imgCdate | formatDate}}</td>
-            <td></td>
-            <td class="my-ellipsis">{{scope.item.imgFileName}}</td>
-        
-          </template> -->
         </v-data-table>
       </v-card>
     </v-dialog>
