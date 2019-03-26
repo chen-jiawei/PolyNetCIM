@@ -86,10 +86,12 @@ export default {
     Sidentify
   },
   mounted () {
-    if (this.$route.params.id) {
+    if (this.$route.params.id === 'timeout') {
       this.showErrorMsg = true
       this.errorMsg = this.$t('Logintimeout,pleaseloginagain!')
       this.closeAlert()
+    } else {
+      helper.ls.set('polyRouter', '')
     }
     this.identifyCode = ''
     this.makeCode(this.identifyCodes, 4)
@@ -181,7 +183,7 @@ export default {
         } else {
           this.showErrorMsg = false
           helper.ls.set('PolyName', this.name)
-          if (helper.ls.get('polyRouter')) {
+          if (helper.ls.get('polyRouter') && this.name === helper.ls.get('historyName')) {
             this.$router.push(helper.ls.get('polyRouter'))
           } else {
             this.$router.push('/')

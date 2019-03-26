@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import router from './router'
+import helper from './helper'
 const BASE_URL = process.env.BASE_API
 const CREDS = 'include'
 function checkStatus (response) {
@@ -29,6 +30,7 @@ const asyncFetch = async function (obj) {
          */
         if (res.responseCode && res.responseCode === 1250) {
           // 登录超时
+          helper.ls.set('historyName', headers.ls.get('PolyName'))
           router.push('/login/timeout')
         }
         resolve(res)
