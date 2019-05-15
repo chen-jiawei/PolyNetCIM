@@ -1,5 +1,5 @@
 <template>
-  <div> 
+  <div>
     <v-alert class="my-alert" color="#FB8C00" :value="showErrorMsg" type="warning" transition="scale-transition">
       {{errorMsg}}
     </v-alert>
@@ -32,7 +32,7 @@
                     <v-text-field
                       solo
                       v-model="clientForm.cliCode"
-                      :rules="[verify,max6]" 
+                      :rules="[verify,max6]"
                       required
                       :error="formValid.cliCode"
                       validate-on-blur
@@ -49,7 +49,7 @@
                       item-text="label"
                       item-value="value"
                       v-model="clientForm.cliType"
-                      :rules="[verify]" 
+                      :rules="[verify]"
                       required
                       validate-on-blur
                       :error="formValid.cliType"
@@ -66,7 +66,7 @@
                       item-text="label"
                       item-value="value"
                       v-model="clientForm.cliSt"
-                      :rules="[verify]" 
+                      :rules="[verify]"
                       required
                       validate-on-blur
                       :error="formValid.cliSt"
@@ -81,9 +81,9 @@
                 </div>
                 <div class="info-item item-checkbox">
                   <div class="info-item-input">
-                    <v-checkbox 
-                      label="中資機構" 
-                      class="no-border" 
+                    <v-checkbox
+                      label="中資機構"
+                      class="no-border"
                       true-value="Y"
                       false-value="N"
                       v-model="clientForm.cliArea"
@@ -135,10 +135,10 @@
                           <v-flex xs2><div class="item-name"><i class="redstar">*</i>{{$t('LongName')}}</div></v-flex>
                           <v-flex xs10>
                             <div class="item-input">
-                              <v-text-field 
-                                solo v-model="clientForm.cliLname" 
-                                :rules="[verify]" 
-                                required 
+                              <v-text-field
+                                solo v-model="clientForm.cliLname"
+                                :rules="[verify]"
+                                required
                                 validate-on-blur
                                 :error="formValid.cliLname"
                               ></v-text-field>
@@ -151,9 +151,9 @@
                           <v-flex xs2><div class="item-name"><i class="redstar">*</i>{{$t('ShortName')}}</div></v-flex>
                           <v-flex xs10>
                             <div class="item-input">
-                              <v-text-field 
-                                solo v-model="clientForm.cliSname" 
-                                :rules="[verify]" 
+                              <v-text-field
+                                solo v-model="clientForm.cliSname"
+                                :rules="[verify]"
                                 required
                                 validate-on-blur
                                 :error="formValid.cliSname"
@@ -173,10 +173,10 @@
                           <v-flex xs2><div class="item-name"><i class="redstar">*</i>{{$t('Address1')}}</div></v-flex>
                           <v-flex xs10>
                             <div class="item-input">
-                              <v-text-field 
-                                solo 
-                                v-model="clientForm.cliAddr1" 
-                                :rules="[verify]" 
+                              <v-text-field
+                                solo
+                                v-model="clientForm.cliAddr1"
+                                :rules="[verify]"
                                 required
                                 validate-on-blur
                                 :error="formValid.cliAddr1"
@@ -190,9 +190,9 @@
                           <v-flex xs2><div class="item-name"><i class="redstar">*</i>{{$t('Address2')}}</div></v-flex>
                           <v-flex xs10>
                             <div class="item-input">
-                              <v-text-field 
+                              <v-text-field
                                 solo v-model="clientForm.cliAddr2"
-                                :rules="[verify]" 
+                                :rules="[verify]"
                                 required
                                 validate-on-blur
                                 :error="formValid.cliAddr2"
@@ -206,9 +206,9 @@
                           <v-flex xs2><div class="item-name"><i class="redstar">*</i>{{$t('Address3')}}</div></v-flex>
                           <v-flex xs10>
                             <div class="item-input">
-                              <v-text-field solo 
+                              <v-text-field solo
                                 v-model="clientForm.cliAddr3"
-                                :rules="[verify]" 
+                                :rules="[verify]"
                                 required
                                 validate-on-blur
                                 :error="formValid.cliAddr3"
@@ -222,9 +222,9 @@
                           <v-flex xs2><div class="item-name"><i class="redstar">*</i>{{$t('Address4')}}</div></v-flex>
                           <v-flex xs10>
                             <div class="item-input">
-                              <v-text-field solo 
+                              <v-text-field solo
                                 v-model="clientForm.cliAddr4"
-                                :rules="[verify]" 
+                                :rules="[verify]"
                                 required
                                 validate-on-blur
                                 :error="formValid.cliAddr4"
@@ -245,7 +245,7 @@
                                     item-text="label"
                                     item-value="value"
                                     v-model="clientForm.cliCty"
-                                    :rules="[verify]" 
+                                    :rules="[verify]"
                                     required
                                     validate-on-blur
                                     :error="formValid.cliCty"
@@ -257,10 +257,10 @@
                                   <v-flex xs4><div class="item-name"><i class="redstar">*</i>{{$t('District')}}</div></v-flex>
                                   <v-flex xs8>
                                     <div class="item-input">
-                                      <v-text-field 
-                                        solo 
-                                        v-model="clientForm.cliZip" 
-                                        :rules="[verify]" 
+                                      <v-text-field
+                                        solo
+                                        v-model="clientForm.cliZip"
+                                        :rules="[verify]"
                                         required
                                         validate-on-blur
                                         :error="formValid.cliZip"
@@ -342,9 +342,9 @@
                           <v-flex xs2><div class="item-name"><i class="redstar">*</i>{{$t('Email')}}</div></v-flex>
                           <v-flex xs10>
                             <div class="item-input">
-                              <v-text-field solo 
+                              <v-text-field solo
                                 v-model="clientForm.cliEmail"
-                                :rules="[verify]" 
+                                :rules="[verify]"
                                 required
                                 validate-on-blur
                                 :error="formValid.cliEmail"
@@ -396,9 +396,9 @@
                               </v-flex>
                               <v-flex xs4>
                                 <div class="item-input f-right">
-                                  <v-checkbox 
-                                    label="Foreign Resident" 
-                                    class="no-border" 
+                                  <v-checkbox
+                                    label="Foreign Resident"
+                                    class="no-border"
                                     true-value="Y"
                                     false-value="N"
                                     v-model="clientForm.cliForres"
@@ -415,7 +415,7 @@
                           <v-flex xs10>
                             <v-layout row wrap>
                               <v-flex xs4>
-                                <v-select 
+                                <v-select
                                   :items="idCards"
                                   item-text="label"
                                   item-value="value"
@@ -435,7 +435,7 @@
                           <v-flex xs10>
                             <v-layout row wrap>
                               <v-flex xs4>
-                                <v-select 
+                                <v-select
                                   :items="idCards"
                                   item-text="label"
                                   item-value="value"
@@ -446,9 +446,9 @@
                               </v-flex>
                               <v-flex xs4>
                                 <div class="item-input f-right">
-                                  <v-checkbox 
-                                    label="Foreign Resident" 
-                                    class="no-border" 
+                                  <v-checkbox
+                                    label="Foreign Resident"
+                                    class="no-border"
                                     true-value="Y"
                                     false-value="N"
                                     v-model="clientForm.cliForres"
@@ -478,17 +478,19 @@
                                   <v-flex xs8>
                                   <!-- =========================================== -->
                                     <v-menu
+                                      v-model="datePicker.menu1"
                                       ref="menu"
                                       lazy
                                       offset-y
                                       full-width
+                                      :close-on-content-click="false"
                                     >
                                       <v-text-field
                                         slot="activator"
                                         v-model="clientForm.cliPBirth"
                                         readonly
                                       ></v-text-field>
-                                      <v-date-picker v-model="clientForm.cliPBirth" no-title scrollable>
+                                      <v-date-picker v-model="clientForm.cliPBirth" no-title scrollable @input="datePicker.menu1 = false">
                                       </v-date-picker>
                                     </v-menu>
                                   </v-flex>
@@ -498,7 +500,7 @@
                                 <v-layout row wrap>
                                   <v-flex xs4><div class="item-name f-right">{{$t('Marital')}}</div></v-flex>
                                   <v-flex xs8>
-                                    <v-select 
+                                    <v-select
                                       :items="maritals"
                                       item-text="label"
                                       item-value="value"
@@ -520,11 +522,11 @@
                               <v-layout row wrap grid-list-md text-xs-center justify-space-between>
                                 <v-flex xs4>
                                   <div class="item-input">
-                                    <v-select 
+                                    <v-select
                                       :items="banks"
                                       item-text="label"
                                       item-value="value"
-                                      
+
                                     ></v-select>
                                   </div>
                                 </v-flex>
@@ -549,8 +551,8 @@
                                     <v-flex xs4><div class="item-name">{{$t('PaymentMethod')}}</div></v-flex>
                                     <v-flex xs8>
                                       <div class="item-input">
-                                        <v-select 
-                                          :items="payments" 
+                                        <v-select
+                                          :items="payments"
                                           v-model="clientForm.cliPaymthd"
                                           item-text="label"
                                           item-value="value"
@@ -572,17 +574,19 @@
                                 <v-flex xs4>
                                   <div class="item-input">
                                     <v-menu
+                                      v-model="datePicker.menu2"
                                       ref="menu2"
                                       lazy
                                       offset-y
                                       full-width
+                                      :close-on-content-click="false"
                                     >
                                       <v-text-field
                                         slot="activator"
                                         v-model="clientForm.cliJoindate"
                                         readonly
                                       ></v-text-field>
-                                      <v-date-picker v-model="clientForm.cliJoindate" no-title scrollable>
+                                      <v-date-picker v-model="clientForm.cliJoindate" no-title scrollable @input="datePicker.menu2 = false">
                                       </v-date-picker>
                                     </v-menu>
                                   </div>
@@ -655,8 +659,8 @@
                             <v-flex xs3>{{$t('by')}} <span class="weight">{{clientForm.cliAuser}}</span></v-flex>
                           </v-layout>
                         </div>
-                      
-                      
+
+
                     </v-card>
                   </v-flex>
 
@@ -773,12 +777,12 @@
                         </v-layout>
                       </div>
                       <div class="item">
-                        <v-checkbox 
-                          :label="$t('ApplyRoundinginDebitNote')" 
-                          class="no-border" 
+                        <v-checkbox
+                          :label="$t('ApplyRoundinginDebitNote')"
+                          class="no-border"
                           true-value="Y"
                           false-value="N"
-                          v-model="clientForm.cliRndgDn" 
+                          v-model="clientForm.cliRndgDn"
                           hide-details
                         ></v-checkbox>
                       </div>
@@ -807,20 +811,22 @@
                           <v-flex xs6><div class="item-name">{{$t('SyncProfileDate')}}</div></v-flex>
                           <v-flex xs6>
                             <v-menu
+                              v-model="datePicker.menu3"
                               ref="menu"
                               lazy
                               offset-y
                               full-width
+                              :close-on-content-click="false"
                             >
                               <v-text-field
                                 slot="activator"
                                 v-model="clientForm.cliSyncprofiledate"
                                 readonly
                               ></v-text-field>
-                              <v-date-picker v-model="clientForm.cliSyncprofiledate" no-title scrollable>
+                              <v-date-picker v-model="clientForm.cliSyncprofiledate" no-title scrollable @input="datePicker.menu3 = false">
                               </v-date-picker>
                             </v-menu>
-                            
+
                           </v-flex>
                         </v-layout>
                       </div>
@@ -856,10 +862,10 @@
                 <td class="text-xs-left">{{ props.item.claTelidd + props.item.claTel }}</td>
                 <td class="text-xs-left">{{ props.item.claFaxidd + props.item.claFax }}</td>
                 <td class="text-xs-left">
-                  <v-btn 
+                  <v-btn
                     v-if="authority == 99 || authority == 70 || authority == 50"
-                    color="info" 
-                    small 
+                    color="info"
+                    small
                     @click="editAttentions(clientForm.cliCode, props.item.claItem)"
                   >
                     <v-icon small>edit</v-icon> {{$t('Edit')}}
@@ -884,8 +890,8 @@
                 </v-flex>
                 <v-flex xs10>
                   <div class="attention-item-input">
-                    <v-text-field 
-                      solo 
+                    <v-text-field
+                      solo
                       readonly
                       v-model="attentionsForm.claItem"
                     ></v-text-field>
@@ -900,10 +906,10 @@
                 </v-flex>
                 <v-flex xs10>
                   <div class="attention-item-input">
-                    <v-text-field 
-                      solo 
+                    <v-text-field
+                      solo
                       v-model="attentionsForm.claName"
-                      :rules="[verify]" 
+                      :rules="[verify]"
                       :error="attentionsValid.claName"
                       required
                       validate-on-blur
@@ -921,10 +927,10 @@
                   <v-layout row wrap justify-space-between>
                     <v-flex xs4>
                       <div class="attention-item-input">
-                        <v-text-field 
-                          solo 
+                        <v-text-field
+                          solo
                           v-model="attentionsForm.claTitle"
-                          :rules="[verify]" 
+                          :rules="[verify]"
                           :error="attentionsValid.claTitle"
                           required
                           validate-on-blur
@@ -938,10 +944,10 @@
                         </v-flex>
                         <v-flex xs7>
                           <div class="attention-item-input">
-                            <v-text-field 
-                              solo 
+                            <v-text-field
+                              solo
                               v-model="attentionsForm.claFirst"
-                              :rules="[verify]" 
+                              :rules="[verify]"
                               :error="attentionsValid.claFirst"
                               required
                               validate-on-blur
@@ -963,10 +969,10 @@
                   <v-layout row wrap justify-space-between>
                     <v-flex xs4>
                       <div class="attention-item-input">
-                        <v-text-field 
-                          solo 
+                        <v-text-field
+                          solo
                           v-model="attentionsForm.claDeptname"
-                          :rules="[verify]" 
+                          :rules="[verify]"
                           :error="attentionsValid.claDeptname"
                           required
                           validate-on-blur
@@ -980,10 +986,10 @@
                         </v-flex>
                         <v-flex xs7>
                           <div class="attention-item-input">
-                            <v-text-field 
-                              solo 
+                            <v-text-field
+                              solo
                               v-model="attentionsForm.claLast"
-                              :rules="[verify]" 
+                              :rules="[verify]"
                               :error="attentionsValid.claLast"
                               required
                               validate-on-blur
@@ -1090,7 +1096,7 @@
                 </v-flex>
               </v-layout>
             </div>
-            
+
             <div class="attention-item">
               <v-layout row wrap>
                 <v-flex xs2>
@@ -1100,10 +1106,10 @@
                   <v-layout row wrap justify-space-between>
                     <v-flex xs3>
                       <div class="attention-item-input">
-                        <v-text-field 
-                          solo 
+                        <v-text-field
+                          solo
                           v-model="attentionsForm.claTelidd"
-                          :rules="[verify,max5]" 
+                          :rules="[verify,max5]"
                           :error="attentionsValid.claTelidd"
                           required
                           validate-on-blur
@@ -1112,10 +1118,10 @@
                     </v-flex>
                     <v-flex xs9>
                       <div class="attention-item-input">
-                        <v-text-field 
-                          solo 
+                        <v-text-field
+                          solo
                           v-model="attentionsForm.claTel"
-                          :rules="[verify]" 
+                          :rules="[verify]"
                           :error="attentionsValid.claTel"
                           required
                           validate-on-blur
@@ -1135,10 +1141,10 @@
                   <v-layout row wrap justify-space-between>
                     <v-flex xs3>
                       <div class="attention-item-input">
-                        <v-text-field 
-                          solo 
+                        <v-text-field
+                          solo
                           v-model="attentionsForm.claResidd"
-                          :rules="[verify,max5]" 
+                          :rules="[verify,max5]"
                           :error="attentionsValid.claResidd"
                           required
                           validate-on-blur
@@ -1147,10 +1153,10 @@
                     </v-flex>
                     <v-flex xs9>
                       <div class="attention-item-input">
-                        <v-text-field 
-                          solo 
+                        <v-text-field
+                          solo
                           v-model="attentionsForm.claRestel"
-                          :rules="[verify]" 
+                          :rules="[verify]"
                           :error="attentionsValid.claRestel"
                           required
                           validate-on-blur
@@ -1170,11 +1176,11 @@
                   <v-layout row wrap justify-space-between>
                     <v-flex xs3>
                       <div class="attention-item-input">
-                        <v-text-field 
-                          solo 
+                        <v-text-field
+                          solo
                           v-model="attentionsForm.claMobidd"
                           :rules="[verify,max5]"
-                          :error="attentionsValid.claMobidd" 
+                          :error="attentionsValid.claMobidd"
                           required
                           validate-on-blur
                         ></v-text-field>
@@ -1182,10 +1188,10 @@
                     </v-flex>
                     <v-flex xs9>
                       <div class="attention-item-input">
-                        <v-text-field 
-                          solo 
+                        <v-text-field
+                          solo
                           v-model="attentionsForm.claMobtel"
-                          :rules="[verify]" 
+                          :rules="[verify]"
                           :error="attentionsValid.claMobtel"
                           required
                           validate-on-blur
@@ -1205,10 +1211,10 @@
                   <v-layout row wrap justify-space-between>
                     <v-flex xs3>
                       <div class="attention-item-input">
-                        <v-text-field 
-                          solo 
+                        <v-text-field
+                          solo
                           v-model="attentionsForm.claFaxidd"
-                          :rules="[verify,max5]" 
+                          :rules="[verify,max5]"
                           :error="attentionsValid.claFaxidd"
                           required
                           validate-on-blur
@@ -1217,11 +1223,11 @@
                     </v-flex>
                     <v-flex xs9>
                       <div class="attention-item-input">
-                        <v-text-field 
-                          solo 
+                        <v-text-field
+                          solo
                           v-model="attentionsForm.claFax"
                           :error="attentionsValid.claFax"
-                          :rules="[verify]" 
+                          :rules="[verify]"
                           required
                           validate-on-blur
                         ></v-text-field>
@@ -1238,10 +1244,10 @@
                 </v-flex>
                 <v-flex xs10>
                   <div class="attention-item-input">
-                    <v-text-field 
-                      solo 
+                    <v-text-field
+                      solo
                       v-model="attentionsForm.claEmail"
-                      :rules="[verify]" 
+                      :rules="[verify]"
                       :error="attentionsValid.claEmail"
                       required
                       validate-on-blur
@@ -1259,27 +1265,27 @@
                   <div class="attention-item-input personal-data">
                     <v-layout row wrap>
                       <v-flex xs4>
-                        <v-checkbox 
-                          :label="$t('MailingOption1')" 
-                          class="no-border " 
+                        <v-checkbox
+                          :label="$t('MailingOption1')"
+                          class="no-border "
                           true-value="N"
                           false-value=" "
                           v-model="attentionsForm.claMail1"
                         ></v-checkbox>
                       </v-flex>
                       <v-flex xs4>
-                        <v-checkbox 
-                          :label="$t('MailingOption2')" 
-                          class="no-border " 
+                        <v-checkbox
+                          :label="$t('MailingOption2')"
+                          class="no-border "
                           true-value="N"
                           false-value=" "
                           v-model="attentionsForm.claMail2"
                         ></v-checkbox>
                       </v-flex>
                       <v-flex xs4>
-                        <v-checkbox 
-                          :label="$t('MailingOption3')" 
-                          class="no-border " 
+                        <v-checkbox
+                          :label="$t('MailingOption3')"
+                          class="no-border "
                           true-value="N"
                           false-value=" "
                           v-model="attentionsForm.claMail3"
@@ -1297,27 +1303,27 @@
                   <div class="attention-item-input personal-data">
                     <v-layout row wrap>
                       <v-flex xs4>
-                        <v-checkbox 
-                          :label="$t('MailingOption4')" 
-                          class="no-border " 
+                        <v-checkbox
+                          :label="$t('MailingOption4')"
+                          class="no-border "
                           true-value="N"
                           false-value=" "
                           v-model="attentionsForm.claMail4"
                         ></v-checkbox>
                       </v-flex>
                       <v-flex xs4>
-                        <v-checkbox 
-                          :label="$t('MailingOption5')" 
-                          class="no-border " 
+                        <v-checkbox
+                          :label="$t('MailingOption5')"
+                          class="no-border "
                           true-value="N"
                           false-value=" "
                           v-model="attentionsForm.claMail5"
                         ></v-checkbox>
                       </v-flex>
                       <v-flex xs4>
-                        <v-checkbox 
-                          :label="$t('MailingOption6')" 
-                          class="no-border " 
+                        <v-checkbox
+                          :label="$t('MailingOption6')"
+                          class="no-border "
                           true-value="N"
                           false-value=" "
                           v-model="attentionsForm.claMail6"
@@ -1335,27 +1341,27 @@
                   <div class="attention-item-input personal-data">
                     <v-layout row wrap>
                       <v-flex xs4>
-                        <v-checkbox 
-                          :label="$t('MailingOption7')" 
-                          class="no-border " 
+                        <v-checkbox
+                          :label="$t('MailingOption7')"
+                          class="no-border "
                           true-value="N"
                           false-value=" "
                           v-model="attentionsForm.claMail7"
                         ></v-checkbox>
                       </v-flex>
                       <v-flex xs4>
-                        <v-checkbox 
-                          :label="$t('MailingOption8')" 
-                          class="no-border " 
+                        <v-checkbox
+                          :label="$t('MailingOption8')"
+                          class="no-border "
                           true-value="N"
                           false-value=" "
                           v-model="attentionsForm.claMail8"
                         ></v-checkbox>
                       </v-flex>
                       <v-flex xs4>
-                        <v-checkbox 
-                          :label="$t('MailingOption9')" 
-                          class="no-border " 
+                        <v-checkbox
+                          :label="$t('MailingOption9')"
+                          class="no-border "
                           true-value="N"
                           false-value=" "
                           v-model="attentionsForm.claMail9"
@@ -1376,7 +1382,7 @@
                     <v-textarea
                       solo
                       v-model="attentionsForm.claNote"
-                      :rules="[verify]" 
+                      :rules="[verify]"
                       :error="attentionsValid.claNote"
                       required
                       validate-on-blur
@@ -1402,15 +1408,15 @@
                 </v-flex>
               </v-layout>
             </div>
-            
+
           </div>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn 
-            flat 
-            @click="addAndUpdata" 
+          <v-btn
+            flat
+            @click="addAndUpdata"
             :loading="attentionLoading"
           >
             {{$t('Save')}}
@@ -1431,7 +1437,7 @@
               <v-icon>close</v-icon>
             </v-btn>
           </v-toolbar-items>
-          
+
         </v-toolbar>
         <v-data-table
           :headers="EFSheader"
@@ -1443,10 +1449,10 @@
         <template slot="items" slot-scope="scope">
           <td class="text-xs-left">
            <v-btn flat icon color="info" @click="updataFile(scope.item.imgSeqno)"><v-icon >cached</v-icon></v-btn>
-           <v-btn  v-if="authority == 99" flat icon color="info" @click="fileDownload(scope.item.imgSeqno)"><v-icon >cloud_download</v-icon></v-btn> 
+           <v-btn  v-if="authority == 99" flat icon color="info" @click="fileDownload(scope.item.imgSeqno)"><v-icon >cloud_download</v-icon></v-btn>
           </td>
           <td class="text-xs-left">{{ scope.item.imgType }}</td>
-          <td class="text-xs-left"> 
+          <td class="text-xs-left">
             <v-checkbox v-model="scope.item.imgSync" true-value="Y" false-value="N" disabled hide-details></v-checkbox>
           </td>
           <td class="text-xs-left">{{ scope.item.imgDesc}}</td>
@@ -1474,16 +1480,16 @@
         </div>
         <div class="search-item">
           <v-select
-            :items="EFSdocType" 
+            :items="EFSdocType"
             item-text="tchDspval"
             item-value="tchCode"
             :label="$t('Doc Type')"
             v-model="item.imgType"
-            :rules="[verify]" 
+            :rules="[verify]"
             :error="item.verify"
             required
-            validate-on-blur     
-          >  
+            validate-on-blur
+          >
           </v-select>
         </div>
         <div class="search-item condition">
@@ -1545,12 +1551,12 @@
                 ></v-text-field>
               </v-flex>
               <v-flex xs1>
-                <v-select 
-                  :items="EFSdocType" 
+                <v-select
+                  :items="EFSdocType"
                   v-model="item.imgType"
                   item-value="tchCode"
                   item-text="tchDspval"
-                  :rules="[verify]" 
+                  :rules="[verify]"
                   :error="item.verify"
                   required
                   validate-on-blur
@@ -1579,7 +1585,7 @@
               </v-flex>
             </v-layout>
           </div>
-          
+
         </v-card-text>  -->
 
         <!-- <v-divider></v-divider> -->
@@ -1631,6 +1637,11 @@ export default {
   data () {
     const cliCode = this.$route.params.cliCode
     return {
+      datePicker: {
+        menu1: false,
+        menu2: false,
+        menu3: false
+      },
       authority: null,
       cliCode: cliCode,
       forbidChange: false,
@@ -3039,7 +3050,7 @@ export default {
       margin-bottom: 8px;
     }
   }
- 
+
 }
 .right-option .item {
   padding-bottom: 20px !important;
@@ -3170,7 +3181,7 @@ table.v-table thead th {
   border-bottom: 1px solid rgb(210,210,210) !important;
 }
 .v-input__slot {
-  
+
 }
 .elevation-1 tr:hover td {
     background-color: #ceedfe;
@@ -3269,7 +3280,7 @@ table.v-table thead th {
     .v-input__control {
           min-height: 32px;
     }
-  } 
+  }
 }
 .fileCheckbox .v-input__slot {
   border: 0;
