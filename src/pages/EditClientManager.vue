@@ -490,7 +490,7 @@
                                         v-model="clientForm.cliPBirth"
                                         readonly
                                       ></v-text-field>
-                                      <v-date-picker v-model="clientForm.cliPBirth" no-title scrollable @input="datePicker.menu1 = false">
+                                      <v-date-picker v-model="clientForm.cliPBirth" no-title scrollable @input="datePicker.menu1 = false" :month-format="monthFormat" :header-date-format="headerDateFormat">
                                       </v-date-picker>
                                     </v-menu>
                                   </v-flex>
@@ -574,19 +574,20 @@
                                 <v-flex xs4>
                                   <div class="item-input">
                                     <v-menu
-                                      v-model="datePicker.menu2"
                                       ref="menu2"
+                                      v-model="datePicker.menu2"
+                                      :close-on-content-click="false"
                                       lazy
+                                      transition="scale-transition"
                                       offset-y
                                       full-width
-                                      :close-on-content-click="false"
                                     >
                                       <v-text-field
                                         slot="activator"
                                         v-model="clientForm.cliJoindate"
                                         readonly
                                       ></v-text-field>
-                                      <v-date-picker v-model="clientForm.cliJoindate" no-title scrollable @input="datePicker.menu2 = false">
+                                      <v-date-picker v-model="clientForm.cliJoindate" no-title scrollable @input="datePicker.menu2 = false" :month-format="monthFormat" :header-date-format="headerDateFormat">
                                       </v-date-picker>
                                     </v-menu>
                                   </div>
@@ -823,7 +824,7 @@
                                 v-model="clientForm.cliSyncprofiledate"
                                 readonly
                               ></v-text-field>
-                              <v-date-picker v-model="clientForm.cliSyncprofiledate" no-title scrollable @input="datePicker.menu3 = false">
+                              <v-date-picker v-model="clientForm.cliSyncprofiledate" no-title scrollable @input="datePicker.menu3 = false" :month-format="monthFormat" :header-date-format="headerDateFormat">
                               </v-date-picker>
                             </v-menu>
 
@@ -2676,6 +2677,12 @@ export default {
       if (syncDate) {
         obj.cliSyncprofiledate = Number(new Date(syncDate))
       }
+    },
+    headerDateFormat (dateStr) {
+      return dateStr
+    },
+    monthFormat (dateStr) {
+      return dateStr.split('-')[1]
     },
     /**
      * 接收返回数据，把时间转换为字符串格式
